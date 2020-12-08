@@ -6,10 +6,9 @@ const inventorySchema = new Schema({
     item: { type: String, required: true},
     description: { type: String, required: true },
     onHand: { type: Number, required: true },
-    allocated: { type: Number, required: false },
     price: { type: Number, require: true},
-    //imageName: { type: String, required: true },
-    //imagePath: { type: String, required: true },
+    imageName: { type: String, required: true },
+    imagePath: { type: String, required: true },
 }, {
     timestamps: true,
 });

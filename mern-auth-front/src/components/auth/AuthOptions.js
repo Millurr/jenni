@@ -28,20 +28,27 @@ export default function AuthOptions() {
                         {
                             (() => {
                                 if (userData.user.level === 4)
-                                    return <NavDropdown title="Admin Options" variant="outline-info" id="basic-nav-dropdown">
-                                                <NavDropdown.Item onClick={manageInv}>Manage Inventory</NavDropdown.Item>
-                                                {/* <NavDropdown.Item href="/manageloc">Manage Locations</NavDropdown.Item> */}
-                                                <NavDropdown.Divider />
-                                                <NavDropdown.Item href="/reports">Reports</NavDropdown.Item>
-                                            </NavDropdown>
+                                    return  <> 
+                                                <a className="w3-bar-item w3-button" onClick={manageInv}>Inventory</a>
+                                                <a href="/reports" className="w3-bar-item w3-button">Reports</a>
+                                            </>
+                                    // return <NavDropdown title="Admin Options" variant="outline-info" id="basic-nav-dropdown">
+                                    //             <NavDropdown.Item onClick={manageInv}>Manage Inventory</NavDropdown.Item>
+                                    //             {/* <NavDropdown.Item href="/manageloc">Manage Locations</NavDropdown.Item> */}
+                                    //             <NavDropdown.Divider />
+                                    //             <NavDropdown.Item href="/reports">Reports</NavDropdown.Item>
+                                    //         </NavDropdown>
                             })()
                         }
-                        <Button variant="outline-info" onClick={logout}>Log out</Button>
+                        <a className="w3-bar-item w3-button" onClick={logout}><i className="fa" /> LOG OUT</a>
+                        {/* <Button variant="secondary" onClick={logout}>Log out</Button> */}
                     </>
                     ) : (
                     <>
-                        <Button variant="outline-info" onClick={register}>Register</Button>
-                        <Button variant="outline-info" onClick={login}>Log In</Button>
+                        <a className="w3-bar-item w3-button" onClick={register}><i className="fa" /> REGISTER</a>
+                        <a className="w3-bar-item w3-button"  onClick={login}><i className="fa" /> LOG IN</a>
+                        {/* <Button variant="secondary" onClick={register}>Register</Button>
+                        <Button variant="secondary" onClick={login}>Log In</Button> */}
                     </>
             )}
             

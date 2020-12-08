@@ -12,6 +12,7 @@ import ManageInventory from "./components/pages/admin/ManageInventory";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Header from "./components/layouts/Header";
+import Store from './components/pages/Store';
 
 import "./style.css";
 
@@ -66,6 +67,7 @@ export default function App() {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/manageinv" component={ManageInventory} />
+            <Route path="/store" component={Store}/>
             {/* <Route path="/manageloc" component={ManageLocations} /> */}
           </Switch>
         </div>

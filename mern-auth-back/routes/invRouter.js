@@ -6,7 +6,7 @@ const Inventory = require('../models/invModel');
 // Adds new item to inventory
 router.post('/', async (req, res) => {
     try {
-        const { item, description, onHand, allocated, price } = req.body;
+        const { item, description, onHand, price, imageName, imagePath } = req.body;
 
         const level = req.header("level");
 
@@ -21,13 +21,15 @@ router.post('/', async (req, res) => {
         if (!description) return res.status(400).json({msg: "A description must exist"});
         if (!onHand) return res.status(400).json({msg: "An On Hand must exist"});
         if (!price) return res.status(400).json({msg: "A price must exist"});
+        if (!imageName) return res.status(400).json({msg: "An image must exist"});
             
         const newInv = new Inventory({
             item, 
             description, 
             onHand, 
-            allocated, 
             price,
+            imageName,
+            imagePath
         });
         const savedInv = await newInv.save();
         res.json(savedInv);
@@ -45,7 +47,7 @@ router.post("/edit/:id", async (req, res) => {
         const level = req.header('level');
         if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."}); 
 
-        let { item, description, onHand, allocated, price } = req.body;
+        let { item, description, onHand, price, imageName, imagePath } = req.body;
 
         const compareItem = await Inventory.findOne({ item: item });
         
@@ -53,14 +55,11 @@ router.post("/edit/:id", async (req, res) => {
             if (compareItem.item !== foundItem.item) return res.status(400).json({msg: "This item name already exits."}); 
         }
 
-        if (foundItem.allocated == 0) {
-            if (foundItem.item != item) foundItem.item = item;
-            if (foundItem.description != description) foundItem.description = description;
-            if (foundItem.price != price) foundItem.price = price;
-            // return res.status(400).json({msg: "This item must not be allocated to edit."});
-        }
-
+        if (foundItem.item != item) foundItem.item = item;
+        if (foundItem.description != description) foundItem.description = description;
+        if (foundItem.price != price) foundItem.price = price;
         if (foundItem.onHand != onHand) foundItem.onHand = onHand;
+        if (foundItem.imagePath != imagePath) foundItem.imagePath = imagePath;
         
         const newItem = await foundItem.save();
         res.json(newItem);

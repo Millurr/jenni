@@ -1,4 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
+@import url('https://www.w3schools.com/w3css/4/w3.css');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  padding-bottom: 20px;
+  background-size: cover;
+  background-image: url("/background.jpg");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("/shop.jpg");
+    min-height: 100%;
+  }
+
+.w3-bar .w3-button {
+  padding: 16px;
+}
 
 * {
     margin: 0;
@@ -24,7 +54,7 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -34,15 +64,11 @@ p,
 ul,
 ol {
     margin: 1px;
-}
+} */
 
 /* general */
 
-body {
-    font-family: "Roboto", sans-serif;
-}
-
-.page {
+/* .page {
     padding: 1rem;
 }
 
@@ -119,7 +145,7 @@ body {
     border-radius: 8px;
     background-color: #5889b1;
     font-size: 1.1rem;
-}
+} */
 
 /* Error notice */
 
