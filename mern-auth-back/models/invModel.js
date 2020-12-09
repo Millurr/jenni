@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const inventorySchema = new Schema({
     item: { type: String, required: true},
     description: { type: String, required: true },
-    onHand: { type: Number, required: true },
+    count: { type: Number, required: true },
     price: { type: Number, require: true},
     imageName: { type: String, required: true },
     imagePath: { type: String, required: true },

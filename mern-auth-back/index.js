@@ -28,3 +28,4 @@ app.use("/users", require("./routes/userRouter"));
 app.use("/todo", require("./routes/todoRouter"));
 app.use("/inventory", require("./routes/invRouter"));
 app.use("/locations", require("./routes/locRouter"));
+app.use("/cart", require("./routes/cartRouter"));

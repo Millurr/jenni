@@ -1,13 +1,10 @@
 import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import UserContext from '../../context/UserContext';
-import { Button, NavDropdown } from 'react-bootstrap';
 
 export default function AuthOptions() {
     const {userData, setUserData} = useContext(UserContext);
     const history = useHistory();
-
-    //console.log(userData);
 
     const register = () => history.push("/register");
     const login = () => history.push('/login');
@@ -17,6 +14,7 @@ export default function AuthOptions() {
             token: undefined,
             user: undefined
         });
+        history.push('/login');
         localStorage.setItem("auth-token", "");
     };
 

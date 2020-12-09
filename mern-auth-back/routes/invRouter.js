@@ -6,7 +6,7 @@ const Inventory = require('../models/invModel');
 // Adds new item to inventory
 router.post('/', async (req, res) => {
     try {
-        const { item, description, onHand, price, imageName, imagePath } = req.body;
+        const { item, description, count, price, imageName, imagePath } = req.body;
 
         const level = req.header("level");
 
@@ -19,14 +19,14 @@ router.post('/', async (req, res) => {
 
         if (!item) return res.status(400).json({msg: "An item must exist"});
         if (!description) return res.status(400).json({msg: "A description must exist"});
-        if (!onHand) return res.status(400).json({msg: "An On Hand must exist"});
+        if (!count) return res.status(400).json({msg: "An On Hand must exist"});
         if (!price) return res.status(400).json({msg: "A price must exist"});
         if (!imageName) return res.status(400).json({msg: "An image must exist"});
             
         const newInv = new Inventory({
             item, 
             description, 
-            onHand, 
+            count, 
             price,
             imageName,
             imagePath
@@ -47,7 +47,7 @@ router.post("/edit/:id", async (req, res) => {
         const level = req.header('level');
         if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."}); 
 
-        let { item, description, onHand, price, imageName, imagePath } = req.body;
+        let { item, description, count, price, imageName, imagePath } = req.body;
 
         const compareItem = await Inventory.findOne({ item: item });
         
@@ -58,7 +58,7 @@ router.post("/edit/:id", async (req, res) => {
         if (foundItem.item != item) foundItem.item = item;
         if (foundItem.description != description) foundItem.description = description;
         if (foundItem.price != price) foundItem.price = price;
-        if (foundItem.onHand != onHand) foundItem.onHand = onHand;
+        if (foundItem.count != count) foundItem.count = count;
         if (foundItem.imagePath != imagePath) foundItem.imagePath = imagePath;
         
         const newItem = await foundItem.save();
@@ -69,8 +69,18 @@ router.post("/edit/:id", async (req, res) => {
 });
 
 // Gets individual items from database
-router.get('/item/:itemId', async(req, res) => {
-    const item = await Inventory.findOne({_id: req.params.itemId});
+router.get('/items/:id', async(req, res) => {
+    // const {_id} = req.body;
+    const item = await Inventory.findOne({_id: req.params.id});
+    // console.log(req.body);
+    // let item = [];
+    // if (Object.keys(_ids).length <= 1) {
+    //     item[0] = await Inventory.findOne({_id: _ids[0]});
+    // } else {
+    //     for (let i=0; i<Object.keys(_ids).length; i++) {
+    //         item[i] = await Inventory.findOne({_id: _ids[i]});
+    //     }
+    // }
     res.json(item);
 });
 

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
 const User = require("../models/userModel");
+const Inventory = require('../models/invModel')
 const { json } = require('express');
 
 router.post("/register", async (req, res) => {
@@ -101,6 +102,19 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 });
 
+router.post('/addtocart', auth, async (req, res) => {
+    const {userId, itemId} = req.body;
+    const user = await User.findById({_id: userId});
+    const item = await Inventory.findById({_id: itemId});
+    res.json({
+        displayName: user.displayName,
+        email: user.email,
+        item: item.item,
+        price: item.price,
+        description: item.description,
+    });
+})
+
 router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
     //console.log(user);
@@ -108,6 +122,7 @@ router.get("/", auth, async (req, res) => {
         displayName: user.displayName,
         id: user._id,
         level: user.level,
+        cart: user.cart
     });
 })
 

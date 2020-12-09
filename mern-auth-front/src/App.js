@@ -7,19 +7,19 @@ import UserContext from "./context/UserContext";
 
 import Home from "./components/pages/Home";
 import ManageInventory from "./components/pages/admin/ManageInventory";
-// import ManageLocations from './components/pages/admin/ManageLocations';
 
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Header from "./components/layouts/Header";
 import Store from './components/pages/Store';
+import CheckOut from './components/pages/CheckOut';
 
 import "./style.css";
 
 export default function App() {
 
   const [userData, setUserData] = useState({
-    token: undefined,
+    token: localStorage.getItem('auth-token') ?? undefined,
     user: undefined,
   });
 
@@ -53,9 +53,12 @@ export default function App() {
       }
       
     };
-    console.log(userData);
-    checkLoggedIn();
+    const timer = setTimeout(() => {
+      checkLoggedIn();
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
+
 
   return (
     <BrowserRouter>
@@ -68,6 +71,7 @@ export default function App() {
             <Route path="/register" component={Register} />
             <Route path="/manageinv" component={ManageInventory} />
             <Route path="/store" component={Store}/>
+            <Route path="/checkout" component={CheckOut}/>
             {/* <Route path="/manageloc" component={ManageLocations} /> */}
           </Switch>
         </div>

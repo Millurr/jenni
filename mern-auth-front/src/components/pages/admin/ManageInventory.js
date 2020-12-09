@@ -4,15 +4,14 @@ import { Button, Table } from 'react-bootstrap';
 import Axios from 'axios';
 import firebase from './Firebase';
 import ErrorNotice from "../../misc/ErrorNotice";
-import { FilePicker, ImagePicker } from 'react-file-picker';
-import Resizer from "react-image-file-resizer";
+import { FilePicker } from 'react-file-picker';
 
 export default function ManageInventory() {
     const {userData} = useContext(UserContext);
     const [inventory, setInventory] = useState([]);
     const [item, setItem] = useState();
     const [description, setDescription] = useState();
-    const [onHand, setonHand] = useState();
+    const [count, setCount] = useState();
     const [price, setPrice] = useState();
     const [imageName, setImageName] = useState();
     const [imagePath, setImagePath] = useState();
@@ -20,10 +19,10 @@ export default function ManageInventory() {
     const [currentId, setCurrentId] = useState();
     const [editItem, setEditItem] = useState();
     const [editDescription, setEditDescription] = useState();
-    const [editOnHand, setEditOnHand] = useState();
+    const [editcount, setEditcount] = useState();
     const [editPrice, setEditPrice] = useState();
-    const [editImgName, setEditImgName] = useState();
-    const [editImgPath, setEditImgPath] = useState();
+    // const [editImgName, setEditImgName] = useState();
+    // const [editImgPath, setEditImgPath] = useState();
     
 
     useEffect(() => {
@@ -36,15 +35,17 @@ export default function ManageInventory() {
     }, [inventory])
 
     const onSubmit = async () => {
-        let newItem = {'item': item, 'description': description, 'onHand': onHand, 'price': price, 'imageName': imageName, 'imagePath': imagePath};
+        let newItem = {'item': item, 'description': description, 'count': count, 'price': price, 'imageName': imageName, 'imagePath': imagePath};
         const header = { headers: {'level': userData.user?.level.toString()}}
+        console.log(header);
+        console.log(newItem);
         try {
             const addedItem = await Axios.post("http://localhost:5000/inventory/", newItem, header);
             inventory.push(addedItem);
             setInventory(inventory);
             setItem('');
             setDescription('');
-            setonHand('');
+            setCount('');
             setPrice('');
             setImageName('');
             setImagePath('');
@@ -58,19 +59,19 @@ export default function ManageInventory() {
     const fillEditValues = (id, itemName, desc, have, price, imgName, path) => {
         setEditItem(itemName);
         setEditDescription(desc);
-        setEditOnHand(have);
+        setEditcount(have);
         setEditPrice(price);
         setCurrentId(id);
-        setEditImgName(imgName);
-        setEditImgPath(path);
+        // setEditImgName(imgName);
+        // setEditImgPath(path);
     }
 
     const onEditSubmit = async (id) => {
         const header = { headers: {'level': userData.user?.level.toString()}}
-        let updatedItem = {'item': editItem, 'description': editDescription, 'onHand': editOnHand, 'price': editPrice, 'imageName': imageName, 'imagePath': imagePath};
+        let updatedItem = {'item': editItem, 'description': editDescription, 'count': editcount, 'price': editPrice, 'imageName': imageName, 'imagePath': imagePath};
 
         try {
-            let newItem = await Axios.post("http://localhost:5000/inventory/edit/"+id, updatedItem, header);
+            await Axios.post("http://localhost:5000/inventory/edit/"+id, updatedItem, header);
             setCurrentId(undefined);
             setImagePath('');
             setImageName('');
@@ -97,7 +98,6 @@ export default function ManageInventory() {
 
     const uploadImage = async (image, imageName) => {
         var storage = firebase.storage();
-        var ext = (Math.floor(Math.random() * Math.floor(500))).toString();
         const ref = storage.ref().child('Store/' + imageName);
         return ref.put(image);
     }
@@ -118,7 +118,7 @@ export default function ManageInventory() {
                             <tr>
                                 <th>Item</th>
                                 <th>Description</th>
-                                <th>On Hand</th>
+                                <th>Count</th>
                                 <th>Picture</th>
                                 <th>Price</th>
                                 <th>Actions</th>
@@ -129,7 +129,7 @@ export default function ManageInventory() {
                             <tr key={items.item}>
                                 {currentId === items._id ? <td><input value={editItem} onChange={(e) => setEditItem(e.target.value)}/></td> : <td>{items.item}</td>}
                                 {currentId === items._id ? <td><input value={editDescription} onChange={(e) => setEditDescription(e.target.value)}/></td> : <td>{items.description}</td>}
-                                {currentId === items._id ? <td><input value={editOnHand} type="number" onChange={(e) => setEditOnHand(e.target.value)}/></td> : <td>{items.onHand}</td>}
+                                {currentId === items._id ? <td><input value={editcount} type="number" onChange={(e) => setEditcount(e.target.value)}/></td> : <td>{items.count}</td>}
                                 {currentId === items._id ? <td><FilePicker
                                     extensions={['jpg', 'jpeg', 'png']}
                                     onChange={(img) => {onChooseImagePress(img)}}
@@ -144,13 +144,13 @@ export default function ManageInventory() {
                                 {currentId === items._id ? <td><input value={editPrice} type="number" min="0.01" step="0.01" onChange={(e) => setEditPrice(e.target.value)}/></td> : <td>${items.price}</td>}
                                 {currentId === items._id ? 
                                     <td><Button variant="outline-info" type="submit" onClick={() => onEditSubmit(currentId)}>Save</Button><Button variant="outline-info" type="submit" onClick={() => setCurrentId('')}>X</Button></td> : 
-                                    <td><Button variant="outline-info" type="submit" onClick={() => {fillEditValues(items._id, items.item, items.description, items.onHand, items.price, items.imageName, items.imagePath)}}>Edit</Button></td>}
+                                    <td><Button variant="outline-info" type="submit" onClick={() => {fillEditValues(items._id, items.item, items.description, items.count, items.price, items.imageName, items.imagePath)}}>Edit</Button></td>}
                             </tr>
                         ))}
                         <tr>
                             <td><input value={item} onChange={(e) => setItem(e.target.value)}/></td>
                             <td><input value={description} onChange={(e) => setDescription(e.target.value)}/></td>
-                            <td><input value={onHand} type="number" onChange={(e) => setonHand(e.target.value)}/></td>
+                            <td><input value={count} type="number" onChange={(e) => setCount(e.target.value)}/></td>
                             {imagePath == null ? <td> <FilePicker
                                     extensions={['jpg', 'jpeg', 'png']}
                                     dims={{minWidth: 100, maxWidth: 500, minHeight: 100, maxHeight: 500}}

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import AuthOptions from '../auth/AuthOptions';
-
-import { Navbar, Nav } from 'react-bootstrap';
+import {Cart} from './Cart.js';
 
 export default function Header() {
     const history = useHistory();
+    let [cart, setCart] = useState([]);
+
+    let localCart = localStorage.getItem("cart");
+
+    useEffect(() => {
+        localCart = JSON.parse(localCart);
+        if (localCart) setCart(localCart);
+    }, [localCart]);
 
     const home = () => history.push("/");
     const store = () => history.push('/store');
@@ -22,27 +29,8 @@ export default function Header() {
                     <AuthOptions />
                 </div>
             </div>
+            {/* <Cart count={cart.length}/> */}
+            {(cart.length === 0) || (cart === undefined) ? <></> : <Cart style={{padding:'10px'}} count={cart.length}/> }
         </div>
     )
-        // <Navbar >
-        //     <Navbar.Brand href="/">
-        //         {/* <img
-        //             alt=""
-        //             src="/logo512.png"
-        //             width="30"
-        //             height="30"
-        //             className="d-inline-block align-top"
-        //         /> */}
-        //         Jenni's Website
-        //     </Navbar.Brand>
-        //     <Nav className="mr-auto">
-        //         <Nav.Link href="/store">Store</Nav.Link>
-        //         {/* <Nav.Link href="#features">Features</Nav.Link> */}
-        //         {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-                
-        //     </Nav>
-
-        //     <AuthOptions />
-            
-        // </Navbar>
 }
