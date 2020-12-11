@@ -29,7 +29,6 @@ export default function Header() {
                     <AuthOptions />
                 </div>
             </div>
-            {/* <Cart count={cart.length}/> */}
             {(cart.length === 0) || (cart === undefined) ? <></> : <Cart style={{padding:'10px'}} count={cart.length}/> }
         </div>
     )

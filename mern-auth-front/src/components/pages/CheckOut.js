@@ -4,17 +4,12 @@ import { Card, Button, Container, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import PaypalButton from './PaypalButton';
 
+// Gets the local storage to get users items added to cart
+// If user has no data it will display that the cart is empty
+
 export default function CheckOut() {
     let [cart, setCart] = useState([]);
     const [paidFor, setPaidFor] = useState(false);
-    const [loaded, setLoaded] = useState(false);
-    
-    let paypalRef = useRef();
-
-    const product = {
-        price: 777.77,
-        description: 'Fancy chair',
-    }
 
     let localCart = localStorage.getItem("cart");
 
@@ -37,16 +32,29 @@ export default function CheckOut() {
         localStorage.setItem("cart", cartString);
     }
 
-    const editItem = (itemId, amount) => {
+    const editItem = async (itemId, amount) => {
         let cartCopy = [...cart]
 
         let existingItem = cartCopy.find(item => item._id == itemId);
 
         if (!existingItem) return;
 
-        existingItem.count += amount;
+        const maxCheck = await Axios.get('http://localhost:5000/inventory/items/'+itemId);
 
-        if (existingItem.count <= 0) cartCopy = cartCopy.filter(item => item._id != itemId);
+        const max = maxCheck.data.count;
+
+        // make sure the user can not exceed the inventory
+        if (existingItem.count < max) existingItem.count += amount;
+        else if (existingItem.count >= max) {
+            if (amount < 0) existingItem.count += amount;
+            else existingItem.count = max;
+        }
+        
+        // make sure the user does not go less than zero
+        if (existingItem.count <= 1) {
+            if (amount > 0) existingItem.count += amount;
+            else existingItem.count = 1;
+        }
 
         setCart(cartCopy);
 
@@ -74,7 +82,6 @@ export default function CheckOut() {
         localCart = JSON.parse(localCart);
         if (localCart) {
             let toShow = [];
-
             const getInv = async () => {
                 localCart.forEach(async inv => {
                     // _ids.push(localCart[i]._id);
@@ -87,12 +94,8 @@ export default function CheckOut() {
                 }
                 )
             }
-            
             getInv();
-            
         };
-        
-        console.log(localCart);
     }, [])
 
     return (
@@ -128,16 +131,15 @@ export default function CheckOut() {
             ))
             }
             </Row>
-
                 {!(cart.length == 0) ? 
-                <div>
+                <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <p style={{textAlign:'center', fontSize:'24px'}} >Total: ${getTotal()}</p>
-                    <PaypalButton total={getTotal()} />
+                    <PaypalButton total={getTotal()} cart={cart} />
                 </div> : <></>}
             </div> :
 
             <div>
-                <h1>Congrats, you just bought comfy chair!</h1>
+                <h1>Congrats, your order was placed</h1>
             </div>
             }
         </Container>

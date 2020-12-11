@@ -21,8 +21,8 @@ export default function ManageInventory() {
     const [editDescription, setEditDescription] = useState();
     const [editcount, setEditcount] = useState();
     const [editPrice, setEditPrice] = useState();
-    // const [editImgName, setEditImgName] = useState();
-    // const [editImgPath, setEditImgPath] = useState();
+    const [editImgName, setEditImgName] = useState();
+    const [editImgPath, setEditImgPath] = useState();
     
 
     useEffect(() => {
@@ -47,8 +47,8 @@ export default function ManageInventory() {
             setDescription('');
             setCount('');
             setPrice('');
-            setImageName('');
-            setImagePath('');
+            setImageName(null);
+            setImagePath(null);
 
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
@@ -62,13 +62,13 @@ export default function ManageInventory() {
         setEditcount(have);
         setEditPrice(price);
         setCurrentId(id);
-        // setEditImgName(imgName);
-        // setEditImgPath(path);
+        setEditImgName(imgName);
+        setEditImgPath(path);
     }
 
     const onEditSubmit = async (id) => {
         const header = { headers: {'level': userData.user?.level.toString()}}
-        let updatedItem = {'item': editItem, 'description': editDescription, 'count': editcount, 'price': editPrice, 'imageName': imageName, 'imagePath': imagePath};
+        let updatedItem = {'item': editItem, 'description': editDescription, 'count': editcount, 'price': editPrice, 'imageName': editImgName, 'imagePath': editImgPath};
 
         try {
             await Axios.post("http://localhost:5000/inventory/edit/"+id, updatedItem, header);
@@ -171,7 +171,7 @@ export default function ManageInventory() {
                                             {imageName}
                                         </button>
                                 </FilePicker>
-                                </td>    
+                                </td>
                             }
                             <td><input value={price} type="number" min="0.01" step="0.01" onChange={(e) => setPrice(e.target.value)}/></td>
                             <td><Button variant="outline-info" type="submit" onClick={onSubmit}>Add</Button></td>
