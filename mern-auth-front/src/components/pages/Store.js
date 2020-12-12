@@ -31,7 +31,8 @@ export default function Store() {
         let existingItem = cartCopy.find(cartItem => cartItem._id == _id);
 
         if (existingItem) {
-            existingItem.count += 1;
+            if (existingItem.count < item.count) existingItem.count += 1;
+            else alert("You have reached the max inventory of this item. Please edit in cart to remove.");
         } else {
             cartCopy.push({
                 '_id': item._id,

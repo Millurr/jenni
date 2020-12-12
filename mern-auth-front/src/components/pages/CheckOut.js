@@ -3,6 +3,7 @@ import '../../style.css'
 import { Card, Button, Container, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import PaypalButton from './PaypalButton';
+import Success from './Success';
 
 // Gets the local storage to get users items added to cart
 // If user has no data it will display that the cart is empty
@@ -10,6 +11,7 @@ import PaypalButton from './PaypalButton';
 export default function CheckOut() {
     let [cart, setCart] = useState([]);
     const [paidFor, setPaidFor] = useState(false);
+    const [transaction, setTransaction] = useState([]);
 
     let localCart = localStorage.getItem("cart");
 
@@ -78,6 +80,12 @@ export default function CheckOut() {
         return t;
     }
 
+    const onSuccess = (trans) => {
+        setTransaction(trans);
+        setPaidFor(true);
+        console.log(transaction);
+    }
+
     useEffect(() => {
         localCart = JSON.parse(localCart);
         if (localCart) {
@@ -134,12 +142,12 @@ export default function CheckOut() {
                 {!(cart.length == 0) ? 
                 <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <p style={{textAlign:'center', fontSize:'24px'}} >Total: ${getTotal()}</p>
-                    <PaypalButton total={getTotal()} cart={cart} />
+                    <PaypalButton total={getTotal()} cart={cart} onSuccess={(trans) => onSuccess(trans)} />
                 </div> : <></>}
             </div> :
 
             <div>
-                <h1>Congrats, your order was placed</h1>
+                <Success transId={transaction.transactionId} total={transaction.total} name={transaction.name} />
             </div>
             }
         </Container>

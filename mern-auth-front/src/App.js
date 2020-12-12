@@ -13,6 +13,7 @@ import Register from "./components/auth/Register";
 import Header from "./components/layouts/Header";
 import Store from './components/pages/Store';
 import CheckOut from './components/pages/CheckOut';
+import Success from './components/pages/Success';
 
 import "./style.css";
 
@@ -72,6 +73,7 @@ export default function App() {
             <Route path="/manageinv" component={ManageInventory} />
             <Route path="/store" component={Store}/>
             <Route path="/checkout" component={CheckOut}/>
+            <Route path="/success" component={Success}/>
             {/* <Route path="/manageloc" component={ManageLocations} /> */}
           </Switch>
         </div>

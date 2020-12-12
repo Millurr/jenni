@@ -8,7 +8,8 @@ const transactionSchema = new Schema({
     count: { type: Number, required: true },
     total: { type: Number, require: true},
     username: { type: String, required: true},
-    name: { type: String, required:true}
+    name: { type: String, required:true},
+    userId: {type: String, required:true}
 }, {
     timestamps: true,
 });

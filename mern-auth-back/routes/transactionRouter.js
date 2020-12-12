@@ -4,7 +4,7 @@ const Transaction = require('../models/transactionModel');
 const Inventory = require('../models/invModel');
 
 router.post("/", async (req, res) => {
-    const {items, transactionId, count, total, username, name} = req.body;
+    const {items, transactionId, count, total, username, name, userId} = req.body;
     // const item = await Inventory.findById({_id: itemId});
     items.forEach( async (item) => {
         const foundItem = await Inventory.findById({_id: item._id});
@@ -22,10 +22,11 @@ router.post("/", async (req, res) => {
         count,
         total,
         username,
-        name
+        name,
+        userId
     });
 
-    // const savedTrans = await newTrans.save();
+    const savedTrans = await newTrans.save();
 
     res.json(newTrans);
 })
