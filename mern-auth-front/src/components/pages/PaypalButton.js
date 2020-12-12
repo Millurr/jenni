@@ -44,11 +44,6 @@ export default function PaypalButton({total, cart, onSuccess}) {
                     }
                 })
             }}
-            // onSuccess={(details, data) => {
-            //     alert("Transaction completed by " + details.payer.name.given_name);
-       
-            //     // OPTIONAL: Call your server to save the transaction
-            //   }}
         />
     )
 }

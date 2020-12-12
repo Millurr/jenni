@@ -8,69 +8,69 @@ import Success from './Success';
 // Gets the local storage to get users items added to cart
 // If user has no data it will display that the cart is empty
 
-export default function CheckOut() {
-    let [cart, setCart] = useState([]);
+export default function CheckOut({ cart, editItem, removeItem, removeCart}) {
+    // let [cart, setCart] = useState([]);
     const [paidFor, setPaidFor] = useState(false);
     const [transaction, setTransaction] = useState([]);
 
     let localCart = localStorage.getItem("cart");
 
-    const removeItem = (itemId) => {
-        let cartCopy = [...cart];
+    // const removeItem = (itemId) => {
+    //     let cartCopy = [...cart];
 
-        cartCopy = cartCopy.filter(item => item._id != itemId);
+    //     cartCopy = cartCopy.filter(item => item._id != itemId);
 
-        setCart(cartCopy);
+    //     setCart(cartCopy);
 
-        let copyCopyCart = [];
+    //     let copyCopyCart = [];
 
-        // This loops prevents price and unessesary vaialbes being stored locally
-        for (let i=0; i<cartCopy.length; i++) {
-            copyCopyCart.push({'_id': cartCopy[i]._id, 'count': cartCopy[i].count});
-        }
+    //     // This loops prevents price and unessesary vaialbes being stored locally
+    //     for (let i=0; i<cartCopy.length; i++) {
+    //         copyCopyCart.push({'_id': cartCopy[i]._id, 'count': cartCopy[i].count});
+    //     }
 
-        let cartString = JSON.stringify(copyCopyCart);
+    //     let cartString = JSON.stringify(copyCopyCart);
 
-        localStorage.setItem("cart", cartString);
-    }
+    //     localStorage.setItem("cart", cartString);
+    // }
 
-    const editItem = async (itemId, amount) => {
-        let cartCopy = [...cart]
+    // const editItem = async (itemId, amount) => {
+    //     let cartCopy = [...cart]
 
-        let existingItem = cartCopy.find(item => item._id == itemId);
+    //     let existingItem = cartCopy.find(item => item._id == itemId);
 
-        if (!existingItem) return;
+    //     if (!existingItem) return;
 
-        const maxCheck = await Axios.get('http://localhost:5000/inventory/items/'+itemId);
+    //     const maxCheck = await Axios.get('http://localhost:5000/inventory/items/'+itemId);
 
-        const max = maxCheck.data.count;
+    //     const max = maxCheck.data.count;
 
-        // make sure the user can not exceed the inventory
-        if (existingItem.count < max) existingItem.count += amount;
-        else if (existingItem.count >= max) {
-            if (amount < 0) existingItem.count += amount;
-            else existingItem.count = max;
-        }
+    //     // make sure the user can not exceed the inventory
+    //     if (existingItem.count < max) existingItem.count += amount;
+    //     else if (existingItem.count >= max) {
+    //         if (amount < 0) existingItem.count += amount;
+    //         else existingItem.count = max;
+    //     }
         
-        // make sure the user does not go less than zero
-        if (existingItem.count <= 1) {
-            if (amount > 0) existingItem.count += amount;
-            else existingItem.count = 1;
-        }
+    //     // make sure the user does not go less than zero
+    //     if (existingItem.count <= 1) {
+    //         if (amount > 0) existingItem.count += amount;
+    //         else existingItem.count = 1;
+    //     }
 
-        setCart(cartCopy);
+    //     setCart(cartCopy);
 
-        let copyCopyCart = [];
+    //     let copyCopyCart = [];
 
-        // This loops prevents price and unessesary vaialbes being stored locally
-        for (let i=0; i<cartCopy.length; i++) {
-            copyCopyCart.push({'_id': cartCopy[i]._id, 'count': cartCopy[i].count});
-        }
+    //     // This loops prevents price and unessesary vaialbes being stored locally
+    //     for (let i=0; i<cartCopy.length; i++) {
+    //         copyCopyCart.push({'_id': cartCopy[i]._id, 'count': cartCopy[i].count});
+    //     }
 
-        let cartString = JSON.stringify(copyCopyCart);
+    //     let cartString = JSON.stringify(copyCopyCart);
 
-        localStorage.setItem('cart', cartString);
-    }
+    //     localStorage.setItem('cart', cartString);
+    // }
 
     const getTotal = () => {
         let t = 0;
@@ -86,25 +86,25 @@ export default function CheckOut() {
         console.log(transaction);
     }
 
-    useEffect(() => {
-        localCart = JSON.parse(localCart);
-        if (localCart) {
-            let toShow = [];
-            const getInv = async () => {
-                localCart.forEach(async inv => {
-                    // _ids.push(localCart[i]._id);
-                    const cartInv = await Axios.get('http://localhost:5000/inventory/items/'+inv._id);
-                    // console.log(cartInv.data);
-                    cartInv.data.count = inv.count;
-                    toShow.push(cartInv.data);
-                    console.log(toShow);
-                    setCart(toShow);
-                }
-                )
-            }
-            getInv();
-        };
-    }, [])
+    // useEffect(() => {
+    //     localCart = JSON.parse(localCart);
+    //     if (localCart) {
+    //         let toShow = [];
+    //         const getInv = async () => {
+    //             localCart.forEach(async inv => {
+    //                 // _ids.push(localCart[i]._id);
+    //                 const cartInv = await Axios.get('http://localhost:5000/inventory/items/'+inv._id);
+    //                 // console.log(cartInv.data);
+    //                 cartInv.data.count = inv.count;
+    //                 toShow.push(cartInv.data);
+    //                 console.log(toShow);
+    //                 setCart(toShow);
+    //             }
+    //             )
+    //         }
+    //         getInv();
+    //     };
+    // }, [])
 
     return (
         <Container fluid="md" style={{margin:0, position:'absolute', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}}>
@@ -132,7 +132,7 @@ export default function CheckOut() {
                             <Button style={{ margin:'10px'}} onClick={() => editItem(inv._id, 1)} variant="secondary">+</Button>
                         </Row>
                         
-                        <Button href='/checkout' onClick={() => removeItem(inv._id)} variant="secondary">Remove</Button>
+                        <Button onClick={() => removeItem(inv._id)} variant="secondary">Remove</Button>
                     </Card.Body>
                 </Card>
                 
@@ -147,7 +147,7 @@ export default function CheckOut() {
             </div> :
 
             <div>
-                <Success transId={transaction.transactionId} total={transaction.total} name={transaction.name} />
+                <Success transId={transaction.transactionId} total={transaction.total} name={transaction.name} removeCart={() => removeCart()}/>
             </div>
             }
         </Container>

@@ -1,10 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react';
 import '../../style.css'
 import { Card, Button, Container, Row } from 'react-bootstrap';
-import Axios from 'axios';
-import PaypalButton from './PaypalButton';
 
-export default function Success({transId, total, name}) {
+export default function Success({transId, total, name, removeCart}) {
+    useEffect(() => {
+        removeCart();
+    }, [])
+
     return (
         <div>
             <h1>Thank you, {name}</h1>

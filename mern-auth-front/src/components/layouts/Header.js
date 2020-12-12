@@ -5,14 +5,14 @@ import {Cart} from './Cart.js';
 
 export default function Header() {
     const history = useHistory();
-    let [cart, setCart] = useState([]);
+    // let [cart, setCart] = useState([]);
 
-    let localCart = localStorage.getItem("cart");
+    // let localCart = localStorage.getItem("cart");
 
-    useEffect(() => {
-        localCart = JSON.parse(localCart);
-        if (localCart) setCart(localCart);
-    }, [localCart]);
+    // useEffect(() => {
+    //     localCart = JSON.parse(localCart);
+    //     if (localCart) setCart(localCart);
+    // }, [localCart]);
 
     const home = () => history.push("/");
     const store = () => history.push('/store');
@@ -29,7 +29,7 @@ export default function Header() {
                     <AuthOptions />
                 </div>
             </div>
-            {(cart.length === 0) || (cart === undefined) ? <></> : <Cart style={{padding:'10px'}} count={cart.length}/> }
+            {/* {(cart.length === 0) || (cart === undefined) ? <></> : <Cart style={{padding:'10px'}} count={cart.length}/> } */}
         </div>
     )
 }

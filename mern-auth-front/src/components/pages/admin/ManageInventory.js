@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react'
 import UserContext from '../../../context/UserContext';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Container } from 'react-bootstrap';
 import Axios from 'axios';
 import firebase from './Firebase';
 import ErrorNotice from "../../misc/ErrorNotice";
@@ -109,7 +109,7 @@ export default function ManageInventory() {
     }
 
     return (
-        <div className="container">
+        <Container fluid="md">
             {userData.user?.level === 4 ? (
                 <div>
                     <h1 style={{textAlign: 'center'}}>Magage Inventory, {userData.user.displayName}</h1>
@@ -188,6 +188,6 @@ export default function ManageInventory() {
                 <Button variant="outline-info" href="/login">Login</Button>
                 </>
             )}
-        </div>
+        </Container>
     )
 }

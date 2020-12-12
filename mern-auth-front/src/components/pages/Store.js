@@ -3,11 +3,8 @@ import '../../style.css'
 import { Card, Button, Container, Row } from 'react-bootstrap';
 import Axios from 'axios';
 
-export default function Store() {
+export default function Store({addItem}) {
     const [inventory, setInventory] = useState([]);
-    let [cart, setCart] = useState([]);
-
-    let localCart = localStorage.getItem("cart");
 
     useEffect(() => {
         const getInv = async () => {
@@ -15,36 +12,7 @@ export default function Store() {
             setInventory(inv.data);
         }
         getInv();
-
-        localCart = JSON.parse(localCart);
-
-        if (localCart) setCart(localCart);
     }, [inventory]);
-
-    const addItem = (item) => {
-        let cartCopy = [...cart];
-
-        if (item.count <= 0) return;
-
-        let {_id} = item;
-
-        let existingItem = cartCopy.find(cartItem => cartItem._id == _id);
-
-        if (existingItem) {
-            if (existingItem.count < item.count) existingItem.count += 1;
-            else alert("You have reached the max inventory of this item. Please edit in cart to remove.");
-        } else {
-            cartCopy.push({
-                '_id': item._id,
-                'count': 1
-            });
-        }
-
-        setCart(cartCopy);
-
-        let stringCart = JSON.stringify(cartCopy);
-        localStorage.setItem("cart", stringCart);
-    }
 
     return (
         <div>
@@ -68,10 +36,9 @@ export default function Store() {
                         <Card.Text>
                             ${inv.price}
                         </Card.Text>
-                        <Button href='/store' onClick={() => addItem(inv)} variant="secondary">Add to Cart</Button>
+                        <Button onClick={() => addItem(inv)} variant="secondary">Add to Cart</Button>
                     </Card.Body>
-                </Card>
-                
+                </Card>    
             ))
             }
             </Row>
