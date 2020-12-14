@@ -15,6 +15,8 @@ import Store from './components/pages/Store';
 import CheckOut from './components/pages/CheckOut';
 import Success from './components/pages/Success';
 import {Cart} from './components/layouts/Cart';
+import AccountSettings from './components/layouts/AccountSettings';
+import OrderHistory from './components/pages/OrderHistory';
 
 import "./style.css";
 
@@ -25,6 +27,7 @@ export default function App() {
     user: undefined,
   });
 
+  const [options, setOptions] = useState(false);
   let [cart, setCart] = useState([]);
 
   let localCart = localStorage.getItem("cart");
@@ -177,8 +180,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
-        <Header />
+        <Header setOptions={(val) => setOptions(val)} current={options} />
         {(cart.length === 0) || (cart === undefined) ? <></> : <Cart style={{padding:'10px'}} count={cart.length}/> }
+        {options ? <AccountSettings setOptions={() => setOptions(false)} /> : <></>}
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -188,6 +192,7 @@ export default function App() {
             <Route path="/store" render={(props) => <Store addItem={(item) => addItem(item)} />}/>
             <Route path="/checkout" render={(props) => <CheckOut cart={cart} editItem={(item, v) => editItem(item, v)} removeItem={(item, v) => removeItem(item, v)} removeCart={() => removeCart()}/>}/>
             <Route path="/success" render={(props) => <Success />}/>
+            <Route exact path="/orderhistory" component={OrderHistory} />
           </Switch>
         </div>
       </UserContext.Provider>

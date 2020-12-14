@@ -7,7 +7,7 @@ export function Cart(props) {
     const checkout = () => history.push('/checkout');
 
     return (
-        <Button href="/checkout">
+        <a href="/checkout">
             <div style={{fontSize: '38px', borderRadius:'50%', position:'fixed', bottom:15, right:15, height:75, width:75, backgroundColor:'black', alignItems:'center', opacity:'80%'}}>
                 <div style={{margin:0, position:'absolute', top:'58%', left: '25%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}}>
                     <p style={{color:'white', fontSize:'22px'}}>{props.count}</p>
@@ -16,6 +16,6 @@ export function Cart(props) {
                     <i className="fa fa-shopping-cart fa-xs" style={{ariaHidden:"true", verticalAlign:'center', color:'white'}} />
                 </div>
             </div>
-        </Button>
+        </a>
     )
 }

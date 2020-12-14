@@ -56,4 +56,9 @@ router.post("/", async (req, res) => {
     res.json(savedTrans);
 })
 
+router.get('/gettrans/:userId', async (req, res) => {
+    const transactions = await Transaction.find({userId: req.params.userId});
+    res.json(transactions);
+});
+
 module.exports = router;

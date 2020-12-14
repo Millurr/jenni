@@ -26,6 +26,7 @@ export default function Store({addItem}) {
             <Container fluid="md" style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
             <Row style={{justifyContent:'center'}}>
             {inventory.map((inv, index) => (
+                inv.count != 0 ?
                 <Card style={{ width: '18rem', margin:'5px' }} key={inv._id}>
                     <Card.Img variant="top" src={inv.imagePath} style={{width:'18rem', height:200}}/>
                     <Card.Body style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
@@ -38,7 +39,7 @@ export default function Store({addItem}) {
                         </Card.Text>
                         <Button onClick={() => addItem(inv)} variant="secondary">Add to Cart</Button>
                     </Card.Body>
-                </Card>    
+                </Card> : <></>
             ))
             }
             </Row>
