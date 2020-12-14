@@ -12,6 +12,11 @@ export default function AccountSettings({setOptions}) {
         setOptions();
     }
 
+    const userHistory = () => {
+        history.push('/useraccount');
+        setOptions();
+    }
+
     const logout = () => {
         setUserData({
             token: undefined,
@@ -23,9 +28,10 @@ export default function AccountSettings({setOptions}) {
     };
 
     return (  
-            <div style={{width:'50%', height:'50%', position:'absolute', zIndex:10,  top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}} >
-                <div style={{margin:0, backgroundColor:'black', opacity:'90%', position:'relative', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)', height:'400px', width:'400px'}}>
+            <div onClick={() => setOptions()} style={{width:'75%', height:'75%', position:'absolute', zIndex:10,  top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}} >
+                <div style={{margin:0, backgroundColor:'black', opacity:'90%', position:'relative', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)', height:'400px', width:'400px', borderRadius:'25px'}}>
                     <div style={{margin:0, position:'absolute', textAlign:'center', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}}>
+                        <Button onClick={userHistory} variant='secondary' style={{color:'white', fontSize:'16px', margin:'5px'}}>Account Info</Button><br></br>
                         <Button onClick={orderHistory} variant='secondary' style={{color:'white', fontSize:'16px', margin:'5px'}}>Order History</Button><br></br>
                         <Button onClick={logout} variant='secondary' style={{color:'white', fontSize:'16px', margin:'5px'}}>Log Out</Button> <br></br>
                         <Button onClick={() => setOptions()} variant='secondary' style={{color:'white', fontSize:'16px', margin:'5px'}}>Close</Button>

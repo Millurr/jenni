@@ -7,7 +7,7 @@ import Axios from 'axios';
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 export default function OrderHistory() {
-    const {userData, setUserData} = useContext(UserContext);
+    const {userData} = useContext(UserContext);
     const [trans, setTrans] = useState([]);
     
     useEffect(() => {
@@ -24,14 +24,12 @@ export default function OrderHistory() {
         var month = months[date.getMonth()];
         var day = date.getDate();
         var hour = date.getHours();
-        var ext = 'does not exist';
+        // var ext = 'does not exist';
         if (hour === 0){
             hour = 12;
-            ext = 'A.M.';
         }
         else if (hour >= 13){
             hour = hour -12;
-            ext = 'P.M.';
         }
 
         return month + '/' + day;
@@ -41,7 +39,8 @@ export default function OrderHistory() {
         <Container fluid="md">
             {userData.user ? 
             <div style={{display:'flex', flexDirection:'column', alignContent:'center', justifyContent:'center'}}>
-                {trans?.length != 0 ? trans.map((transaction) => (
+                <h1 style={{textAlign:'center'}}>Order History</h1>
+                {trans?.length != 0 ? trans?.map((transaction) => (
                     <div style={{borderBottom:'4px solid', padding:'10px'}}>
                         <h1 style={{textAlign:'left', display:'inline-block', fontSize:'16px'}}>ID: {transaction._id}</h1><h1 className={'w3-right'} style={{textAlign:'right', display:'inline-block', fontSize:'16px'}}>{getDate(transaction.createdAt)}</h1>
                         {transaction.items.map((item) => (

@@ -17,6 +17,7 @@ import Success from './components/pages/Success';
 import {Cart} from './components/layouts/Cart';
 import AccountSettings from './components/layouts/AccountSettings';
 import OrderHistory from './components/pages/OrderHistory';
+import UserAccount from './components/pages/UserAccount';
 
 import "./style.css";
 
@@ -193,6 +194,7 @@ export default function App() {
             <Route path="/checkout" render={(props) => <CheckOut cart={cart} editItem={(item, v) => editItem(item, v)} removeItem={(item, v) => removeItem(item, v)} removeCart={() => removeCart()}/>}/>
             <Route path="/success" render={(props) => <Success />}/>
             <Route exact path="/orderhistory" component={OrderHistory} />
+            <Route path="/useraccount" render={(props) => <UserAccount />}/>
           </Switch>
         </div>
       </UserContext.Provider>

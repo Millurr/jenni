@@ -169,6 +169,28 @@ ol {
 }
 /* Error notice */
 
+/* Success notice */
+
+.success-notice {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid rgb(219, 116, 116);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(33, 151, 39);
+}
+
+.success-notice button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(33, 151, 39);
+    color: white;
+}
+/* Success notice */
+
 /* Media queries */
 @media screen and (max-width: 550px) {
     #header .title {

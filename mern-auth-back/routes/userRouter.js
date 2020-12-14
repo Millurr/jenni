@@ -102,27 +102,60 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 });
 
-router.post('/addtocart', auth, async (req, res) => {
-    const {userId, itemId} = req.body;
-    const user = await User.findById({_id: userId});
-    const item = await Inventory.findById({_id: itemId});
-    res.json({
-        displayName: user.displayName,
-        email: user.email,
-        item: item.item,
-        price: item.price,
-        description: item.description,
-    });
+router.post("/changepass", async (req, res) => {
+    try {
+        const {id, password, newPassword, newPasswordCheck} = req.body;
+        const user = await User.findById({_id: id});
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch)
+            return res.status(400).json({msg: "Invalid password."});
+
+        //validate
+        if (!newPassword || !newPasswordCheck)
+            return res.status(400).json({msg: "Not all fields have been entered."});
+        
+        if (newPassword.length < 5)
+            return res.status(400).json({msg: "The password needs to be at least 5 characters long."});
+
+        if (newPassword !== newPasswordCheck)
+            return res.status(400).json({msg: "The password does not equal password check"});
+
+        const salt = await bcrypt.genSalt();
+        const passHash = await bcrypt.hash(newPassword, salt);
+
+        user.password = passHash;
+
+        await user.save();
+
+        res.json({
+            displayName: user.displayName,
+            id: user._id,
+            level: user.level,
+        });
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+})
+
+router.get('/getallusers', auth, async(req, res) => {
+
+    const level = req.header('level');
+    if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."});
+
+    const users = await User.find().select('-password');
+    res.json(users);
 })
 
 router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
-    //console.log(user);
+    
     res.json({
         displayName: user.displayName,
         id: user._id,
         level: user.level,
-        cart: user.cart
     });
 })
 
