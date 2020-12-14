@@ -9,6 +9,8 @@ export default function AuthOptions({setOptions, current}) {
     const register = () => history.push("/register");
     const login = () => history.push('/login');
     const manageInv = () => history.push('/manageinv');
+    const manageUsers = () => history.push('/manageusers');
+    const reports = () => history.push('/reports');
 
     return (
         <>
@@ -20,7 +22,8 @@ export default function AuthOptions({setOptions, current}) {
                                 if (userData.user.level === 4)
                                     return  <> 
                                                 <a className="w3-bar-item w3-button" onClick={manageInv}>INVENTORY</a>
-                                                <a href="/reports" className="w3-bar-item w3-button">REPORTS</a>
+                                                <a className="w3-bar-item w3-button" onClick={manageUsers}>USERS</a>
+                                                <a className="w3-bar-item w3-button" onClick={reports}>REPORTS</a>
                                             </>
                             })()
                         }

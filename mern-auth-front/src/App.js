@@ -6,10 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UserContext from "./context/UserContext";
 
 import Home from "./components/pages/Home";
-import ManageInventory from "./components/pages/admin/ManageInventory";
 
+// Admin pages
+import ManageInventory from "./components/pages/admin/ManageInventory";
+import ManageUsers from './components/pages/admin/ManageUsers';
+
+// Auth pages
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+
+// Users pages
 import Header from "./components/layouts/Header";
 import Store from './components/pages/Store';
 import CheckOut from './components/pages/CheckOut';
@@ -195,6 +201,7 @@ export default function App() {
             <Route path="/success" render={(props) => <Success />}/>
             <Route exact path="/orderhistory" component={OrderHistory} />
             <Route path="/useraccount" render={(props) => <UserAccount />}/>
+            <Route path="/manageusers" render={(props) => <ManageUsers />}/>
           </Switch>
         </div>
       </UserContext.Provider>
