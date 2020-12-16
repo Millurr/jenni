@@ -5,6 +5,7 @@
 
 ### Firebase ###
 mern-auth-front/src/components/pages/admin/Firebase.js
+.env
 
 ### Node ###
 # Logs
