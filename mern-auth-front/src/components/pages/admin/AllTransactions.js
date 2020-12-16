@@ -5,14 +5,68 @@ import Axios from 'axios';
 import ErrorNotice from "../../misc/ErrorNotice";
 import SuccessNotice from '../../misc/SuccessNotice';
 
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
 export default function AllTransactions() {
     const {userData} = useContext(UserContext);
     const [error, setError] = useState();
     const [success, setSuccess] = useState();
+    const [trans, setTrans] = useState([]);
+    
+    useEffect(() => {
+        const getTrans = async () => {
+            const token = localStorage.getItem("auth-token");
+            const header = { headers: {'level': userData.user?.level.toString(), 'x-auth-token': token}};
+            const users = await Axios.get('http://localhost:5000/transaction/alltrans', header);
+            setTrans(users.data);
+        }
+        getTrans();
+    }, [userData.user])
+
+    const getDate = (date) => {
+        date = new Date(date);
+        var month = months[date.getMonth()];
+        var day = date.getDate();
+        var hour = date.getHours();
+        // var ext = 'does not exist';
+        if (hour === 0){
+            hour = 12;
+        }
+        else if (hour >= 13){
+            hour = hour -12;
+        }
+
+        return month + '/' + day;
+    }
 
     return (  
-        <div>
-            {userData.user?.displayName}
-        </div>
+        <Container fluid="md">
+            {userData.user ? 
+            <div style={{display:'flex', flexDirection:'column', alignContent:'center', justifyContent:'center'}}>
+                <h1 style={{textAlign:'center'}}>All Transactions</h1>
+                {trans?.length != 0 ? trans?.map((transaction) => (
+                    <div style={{borderBottom:'4px solid', padding:'10px'}}>
+                        <h1 style={{textAlign:'left', display:'inline-block', fontSize:'16px'}}>ID: {transaction._id}</h1><h1 className={'w3-right'} style={{textAlign:'right', display:'inline-block', fontSize:'16px'}}>{getDate(transaction.createdAt)}</h1>
+                        <div style={{display:'flex', flexDirection:'row', flex:'3', justifyContent:'space-evenly'}}>
+                            <h1 style={{fontSize:'16px'}}>Name: {transaction.name}</h1>
+                            <h1 style={{fontSize:'16px', textAlign:'center'}}><b>Shipping: </b></h1>
+                            <h1 style={{fontSize:'16px'}}>Username: {transaction.username}</h1>
+                        </div>
+                        <h1 style={{textAlign:'center', fontSize:'16px'}}>Status: </h1>
+                        {transaction.items.map((item) => (
+                            <p style={{textAlign:'center', fontSize:'18px'}}>{item.item} ${item.price} x {item.count}</p>
+                        ))}
+                        <p style={{textAlign:'center', fontSize:'18px', fontWeight:'bold'}}>Total: ${transaction.total}</p>
+                    </div>
+                ))
+                : <h1>No transactions logged.</h1>}
+            </div> : 
+            
+            <>
+            <h2>You do not have sufficient permissions for this page</h2>
+            <Button variant="secondary" href="/login">Login</Button>
+            </>
+            }
+        </Container>
     )
 }

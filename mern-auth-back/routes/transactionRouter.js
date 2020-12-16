@@ -2,6 +2,7 @@ const router = require('express').Router();
 const auth = require('../middleware/auth');
 const Transaction = require('../models/transactionModel');
 const Inventory = require('../models/invModel');
+const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
 

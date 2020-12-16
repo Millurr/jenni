@@ -19,7 +19,7 @@ import Register from "./components/auth/Register";
 // Users pages
 import Header from "./components/layouts/Header";
 import Store from './components/pages/Store';
-import CheckOut from './components/pages/CheckOut';
+import CartPage from './components/pages/CartPage';
 import Success from './components/pages/Success';
 import {Cart} from './components/layouts/Cart';
 import AccountSettings from './components/layouts/AccountSettings';
@@ -198,7 +198,7 @@ export default function App() {
             <Route path="/register" component={Register} />
             <Route path="/manageinv" component={ManageInventory} />
             <Route path="/store" render={(props) => <Store addItem={(item) => addItem(item)} />}/>
-            <Route path="/checkout" render={(props) => <CheckOut cart={cart} editItem={(item, v) => editItem(item, v)} removeItem={(item, v) => removeItem(item, v)} removeCart={() => removeCart()}/>}/>
+            <Route path="/cartpage" render={(props) => <CartPage cart={cart} editItem={(item, v) => editItem(item, v)} removeItem={(item, v) => removeItem(item, v)} removeCart={() => removeCart()}/>}/>
             <Route path="/success" render={(props) => <Success />}/>
             <Route exact path="/orderhistory" component={OrderHistory} />
             <Route path="/useraccount" render={(props) => <UserAccount />}/>

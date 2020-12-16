@@ -10,7 +10,7 @@ import Loader from 'react-loader-spinner';
 // Gets the local storage to get users items added to cart
 // If user has no data it will display that the cart is empty
 
-export default function CheckOut({ cart, editItem, removeItem, removeCart}) {
+export default function CartPage({ cart, editItem, removeItem, removeCart}) {
     // let [cart, setCart] = useState([]);
     const [paidFor, setPaidFor] = useState(false);
     const [transaction, setTransaction] = useState([]);
