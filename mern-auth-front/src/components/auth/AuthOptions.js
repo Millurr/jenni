@@ -11,6 +11,7 @@ export default function AuthOptions({setOptions, current}) {
     const manageInv = () => history.push('/manageinv');
     const manageUsers = () => history.push('/manageusers');
     const reports = () => history.push('/reports');
+    const alltrans = () => history.push('/alltrans');
 
     return (
         <>
@@ -24,6 +25,7 @@ export default function AuthOptions({setOptions, current}) {
                                                 <a className="w3-bar-item w3-button" onClick={manageInv}>INVENTORY</a>
                                                 <a className="w3-bar-item w3-button" onClick={manageUsers}>USERS</a>
                                                 <a className="w3-bar-item w3-button" onClick={reports}>REPORTS</a>
+                                                <a className="w3-bar-item w3-button" onClick={alltrans}>TRANSACTIONS</a>
                                             </>
                             })()
                         }

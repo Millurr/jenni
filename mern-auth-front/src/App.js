@@ -10,6 +10,7 @@ import Home from "./components/pages/Home";
 // Admin pages
 import ManageInventory from "./components/pages/admin/ManageInventory";
 import ManageUsers from './components/pages/admin/ManageUsers';
+import AllTransactions from './components/pages/admin/AllTransactions';
 
 // Auth pages
 import Login from "./components/auth/Login";
@@ -202,6 +203,7 @@ export default function App() {
             <Route exact path="/orderhistory" component={OrderHistory} />
             <Route path="/useraccount" render={(props) => <UserAccount />}/>
             <Route path="/manageusers" render={(props) => <ManageUsers />}/>
+            <Route path="/alltrans" render={(props) => <AllTransactions />}/>
           </Switch>
         </div>
       </UserContext.Provider>

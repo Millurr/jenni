@@ -61,4 +61,18 @@ router.get('/gettrans/:userId', async (req, res) => {
     res.json(transactions);
 });
 
+router.get('/alltrans', async(req, res) => {
+    const token = req.header("x-auth-token");
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, process.env.JWT_TOKEN);
+    if (!verified) return res.json(false);
+
+    const level = req.header('level');
+    if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."});
+
+    const transactions = await Transaction.find();
+    res.json(transactions);
+});
+
 module.exports = router;
