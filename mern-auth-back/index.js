@@ -24,14 +24,6 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     console.log("MongoDB connection established");
 });
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
-
 //set up routes
 app.use("/users", require("./routes/userRouter"));
 app.use("/todo", require("./routes/todoRouter"));
@@ -39,3 +31,11 @@ app.use("/inventory", require("./routes/invRouter"));
 app.use("/locations", require("./routes/locRouter"));
 app.use("/cart", require("./routes/cartRouter"));
 app.use("/transaction", require('./routes/transactionRouter'));
+
+// if (process.env.NODE_ENV === 'production') {
+app.use(express.static('client/build'));
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
+// }
