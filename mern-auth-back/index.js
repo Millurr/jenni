@@ -40,11 +40,7 @@ function sendIndex(request, response) {
     response.sendFile(indexPath);
 }
 
-app
-    .get("/cartpage", sendIndex)
-    .get("/store", sendIndex)
-    .get("/", sendIndex)
-    .get("/Login", sendIndex);
+app.get("/cartpage", sendIndex);
 
 // app.get('/*', (req, res) => {
 //     let url = path.join(__dirname, '/client/build', 'index.html');
