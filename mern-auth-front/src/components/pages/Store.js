@@ -8,7 +8,7 @@ export default function Store({addItem}) {
 
     useEffect(() => {
         const getInv = async () => {
-            const inv = await Axios.get("http://localhost:5000/inventory/all");
+            const inv = await Axios.get("/inventory/all");
             setInventory(inv.data);
         }
         getInv();

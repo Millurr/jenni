@@ -1,23 +1,19 @@
 import React, {useState, useContext, useEffect} from 'react'
 import UserContext from '../../../context/UserContext';
-import { Button, Table, Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import Axios from 'axios';
-import ErrorNotice from "../../misc/ErrorNotice";
-import SuccessNotice from '../../misc/SuccessNotice';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 export default function AllTransactions() {
     const {userData} = useContext(UserContext);
-    const [error, setError] = useState();
-    const [success, setSuccess] = useState();
     const [trans, setTrans] = useState([]);
     
     useEffect(() => {
         const getTrans = async () => {
             const token = localStorage.getItem("auth-token");
             const header = { headers: {'level': userData.user?.level.toString(), 'x-auth-token': token}};
-            const users = await Axios.get('http://localhost:5000/transaction/alltrans', header);
+            const users = await Axios.get('/transaction/alltrans', header);
             setTrans(users.data);
         }
         getTrans();

@@ -25,7 +25,7 @@ export function AddLocationModal(props) {
         }
 
         try {            
-            await Axios.post("http://localhost:5000/locations/addLoc/", location, header);
+            await Axios.post("/locations/addLoc/", location, header);
   
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);

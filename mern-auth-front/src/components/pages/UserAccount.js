@@ -23,7 +23,7 @@ export default function UserAccount() {
             newPasswordCheck: newPassCheck
         };
         try {
-            await Axios.post('http://localhost:5000/users/changepass', update);
+            await Axios.post('/users/changepass', update);
             setCurrent('');
             setNewPass('');
             setNewPassCheck('');

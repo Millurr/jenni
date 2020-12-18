@@ -12,7 +12,7 @@ export default function OrderHistory() {
     useEffect(() => {
         const getTrans = async () => {
             console.log(userData.user?.id)
-            const allTrans = await Axios.get('http://localhost:5000/transaction/gettrans/'+userData.user?.id);
+            const allTrans = await Axios.get('/transaction/gettrans/'+userData.user?.id);
             setTrans(allTrans.data);
         }
         getTrans();

@@ -27,7 +27,7 @@ export default function ManageInventory() {
 
     useEffect(() => {
         const getInventory = async () => {
-            const inv = await Axios.get("http://localhost:5000/inventory/all");
+            const inv = await Axios.get("/inventory/all");
             // console.log(inv.data);
             setInventory(inv.data);
         }
@@ -40,7 +40,7 @@ export default function ManageInventory() {
         console.log(header);
         console.log(newItem);
         try {
-            const addedItem = await Axios.post("http://localhost:5000/inventory/", newItem, header);
+            const addedItem = await Axios.post("/inventory/", newItem, header);
             inventory.push(addedItem);
             setInventory(inventory);
             setItem('');
@@ -71,7 +71,7 @@ export default function ManageInventory() {
         let updatedItem = {'item': editItem, 'description': editDescription, 'count': editcount, 'price': editPrice, 'imageName': editImgName, 'imagePath': editImgPath};
 
         try {
-            await Axios.post("http://localhost:5000/inventory/edit/"+id, updatedItem, header);
+            await Axios.post("/inventory/edit/"+id, updatedItem, header);
             setCurrentId(undefined);
             setImagePath('');
             setImageName('');

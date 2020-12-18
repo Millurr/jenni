@@ -49,7 +49,7 @@ export default function App() {
         const getInv = async () => {
             localCart.forEach(async inv => {
                 // _ids.push(localCart[i]._id);
-                const cartInv = await Axios.get('http://localhost:5000/inventory/items/'+inv._id);
+                const cartInv = await Axios.get('/inventory/items/'+inv._id);
                 // console.log(cartInv.data);
                 cartInv.data.count = inv.count;
                 toShow.push(cartInv.data);
@@ -69,14 +69,14 @@ export default function App() {
       }
       try {
         const tokenResponse = await Axios.post(
-          "http://localhost:5000/users/tokenIsValid",
+          "/users/tokenIsValid",
           null,
           { headers: { "x-auth-token": token } }
         );
   
         
         if (tokenResponse.data) {
-          const userRes = await Axios.get("http://localhost:5000/users/", {
+          const userRes = await Axios.get("/users/", {
             headers: { "x-auth-token": token },
           });
           setUserData({
@@ -150,7 +150,7 @@ export default function App() {
 
       if (!existingItem) return;
 
-      const maxCheck = await Axios.get('http://localhost:5000/inventory/items/'+itemId);
+      const maxCheck = await Axios.get('/inventory/items/'+itemId);
 
       const max = maxCheck.data.count;
 

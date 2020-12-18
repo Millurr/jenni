@@ -34,7 +34,7 @@ export default function PaypalButton({total, cart, onSuccess, isLoading, address
                         email: details.payer.email_address,
                         userId: userData.user.id ?? 'Guest'
                     }
-                    const transaction = await Axios.post('http://localhost:5000/transaction/', trans);
+                    const transaction = await Axios.post('/transaction/', trans);
 
                     if (transaction) {
                         onSuccess(transaction.data);

@@ -15,7 +15,7 @@ export default function ManageInventory() {
         const getUsers = async () => {
             const token = localStorage.getItem("auth-token");
             const header = { headers: {'level': userData.user?.level.toString(), 'x-auth-token': token}};
-            const users = await Axios.get('http://localhost:5000/users/getallusers', header);
+            const users = await Axios.get('/users/getallusers', header);
             setUsers(users.data);
         }
         getUsers();
@@ -26,7 +26,7 @@ export default function ManageInventory() {
         const token = localStorage.getItem("auth-token");
         const header = { headers: {'level': userData.user?.level.toString(), 'x-auth-token': token}};
         try {
-            const res = await Axios.put('http://localhost:5000/users/resetpassword', id, header);
+            const res = await Axios.put('/users/resetpassword', id, header);
             setSuccess(res.data.message);
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
@@ -39,7 +39,7 @@ export default function ManageInventory() {
             const token = localStorage.getItem("auth-token");
             const header = { headers: {'level': userData.user?.level.toString(), 'x-auth-token': token}};
             try {
-                await Axios.delete('http://localhost:5000/users/asadmin/delete', id, header);
+                await Axios.delete('/users/asadmin/delete', id, header);
                 setSuccess("User deleted.");
             }
             catch (err) {
