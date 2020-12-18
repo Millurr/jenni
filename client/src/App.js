@@ -201,7 +201,7 @@ export default function App() {
             <Route path="/store" render={(props) => <Store addItem={(item) => addItem(item)} />}/>
             <Route path="/cartpage" render={(props) => <CartPage cart={cart} editItem={(item, v) => editItem(item, v)} removeItem={(item, v) => removeItem(item, v)} removeCart={() => removeCart()}/>}/>
             <Route path="/success" render={(props) => <Success removeCart={() => removeCart()} />}/>
-            <Route exact path="/orderhistory" component={OrderHistory} />
+            <Route path="/orderhistory" component={OrderHistory} />
             <Route path="/useraccount" render={(props) => <UserAccount />}/>
             <Route path="/manageusers" render={(props) => <ManageUsers />}/>
             <Route path="/alltrans" render={(props) => <AllTransactions />}/>
