@@ -39,7 +39,7 @@ function sendIndex(request, response) {
 
     response.sendFile(indexPath);
 }
-
+//
 app
     .get("/cartpage", sendIndex)
     .get("/Habits", sendIndex)
