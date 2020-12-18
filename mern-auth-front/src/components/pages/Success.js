@@ -1,10 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
-import '../../style.css'
+import React, {useEffect} from 'react';
+import '../../style.css';
+import {useHistory} from 'react-router-dom';
 // import { Card, Button, Container, Row } from 'react-bootstrap';
 
 export default function Success({_id, total, name, removeCart}) {
+    const history = useHistory();
     useEffect(() => {
         removeCart();
+        history.replace({
+            'state': undefined
+        });
     }, [])
 
     return (

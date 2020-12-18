@@ -1,13 +1,11 @@
 import React, {useContext} from 'react';
-import {useHistory} from 'react-router-dom';
 import '../../style.css'
 import Axios from 'axios';
 import UserContext from "../../context/UserContext";
 import {PayPalButton} from 'react-paypal-button-v2';
 
-export default function PaypalButton({total, cart, onSuccess, isLoading}) {
-    const {userData, setUserData} = useContext(UserContext);
-    const history = useHistory();
+export default function PaypalButton({total, cart, onSuccess, isLoading, address}) {
+    const {userData} = useContext(UserContext);
 
     return (
         <PayPalButton
@@ -22,6 +20,7 @@ export default function PaypalButton({total, cart, onSuccess, isLoading}) {
                     }]
                 })
             }}
+            shippingPreference = "SET_PROVIDED_ADDRESS"
             onApprove={(data, actions) => {
                 return actions.order.capture().then(async function(details) {
                     const trans = {
@@ -31,6 +30,8 @@ export default function PaypalButton({total, cart, onSuccess, isLoading}) {
                         total,
                         username: userData.user.displayName ?? 'Guest',
                         name: details.payer.name.given_name,
+                        address: address(),
+                        email: details.payer.email_address,
                         userId: userData.user.id ?? 'Guest'
                     }
                     const transaction = await Axios.post('http://localhost:5000/transaction/', trans);

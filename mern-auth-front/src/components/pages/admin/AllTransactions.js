@@ -45,16 +45,16 @@ export default function AllTransactions() {
             <div style={{display:'flex', flexDirection:'column', alignContent:'center', justifyContent:'center'}}>
                 <h1 style={{textAlign:'center'}}>All Transactions</h1>
                 {trans?.length != 0 ? trans?.map((transaction) => (
-                    <div style={{borderBottom:'4px solid', padding:'10px'}}>
+                    <div key={transaction._id} style={{borderBottom:'4px solid', padding:'10px'}}>
                         <h1 style={{textAlign:'left', display:'inline-block', fontSize:'16px'}}>ID: {transaction._id}</h1><h1 className={'w3-right'} style={{textAlign:'right', display:'inline-block', fontSize:'16px'}}>{getDate(transaction.createdAt)}</h1>
                         <div style={{display:'flex', flexDirection:'row', flex:'3', justifyContent:'space-evenly'}}>
                             <h1 style={{fontSize:'16px'}}>Name: {transaction.name}</h1>
-                            <h1 style={{fontSize:'16px', textAlign:'center'}}><b>Shipping: </b></h1>
+                            <h1 style={{fontSize:'16px', textAlign:'center'}}><b>Shipping: {transaction.address} </b></h1>
                             <h1 style={{fontSize:'16px'}}>Username: {transaction.username}</h1>
                         </div>
-                        <h1 style={{textAlign:'center', fontSize:'16px'}}>Status: </h1>
-                        {transaction.items.map((item) => (
-                            <p style={{textAlign:'center', fontSize:'18px'}}>{item.item} ${item.price} x {item.count}</p>
+                        <h1 style={{textAlign:'center', fontSize:'16px'}}>Status: {transaction.status}</h1>
+                        {transaction.items.map((item, index) => (
+                            <p key={index} style={{textAlign:'center', fontSize:'18px'}}>{item.item} ${item.price} x {item.count}</p>
                         ))}
                         <p style={{textAlign:'center', fontSize:'18px', fontWeight:'bold'}}>Total: ${transaction.total}</p>
                     </div>

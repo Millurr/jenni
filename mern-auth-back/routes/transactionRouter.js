@@ -7,7 +7,7 @@ const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
 
 router.post("/", async (req, res) => {
-    const {items, transactionId, count, total, username, name, userId} = req.body;
+    const {items, transactionId, count, total, username, name, address, userId, email} = req.body;
     // const item = await Inventory.findById({_id: itemId});
     items.forEach( async (item) => {
         const foundItem = await Inventory.findById({_id: item._id});
@@ -25,6 +25,8 @@ router.post("/", async (req, res) => {
         total,
         username,
         name,
+        status: 'Pending',
+        address,
         userId
     });
 
@@ -40,10 +42,12 @@ router.post("/", async (req, res) => {
 
     var mailOptions = {
         from: 'millurr0@gmail.com',
-        to: 'josh.miller1994@yahoo.com, josh.miller@selu.edu',
+        to: 'josh.miller1994@yahoo.com, ' + email,
         subject: 'New Company',
         html: '<h1>' +  username +'</h1>'
     }
+
+    console.log(email);
 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {

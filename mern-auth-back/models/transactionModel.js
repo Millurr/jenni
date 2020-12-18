@@ -9,6 +9,8 @@ const transactionSchema = new Schema({
     total: { type: Number, require: true},
     username: { type: String, required: true},
     name: { type: String, required:true},
+    status: { type: String, required: true},
+    address: { type: String, required:true},
     userId: {type: String, required:true}
 }, {
     timestamps: true,
