@@ -35,7 +35,7 @@ app.use("/transaction", require('./routes/transactionRouter'));
 // app.use(express.static('client/build'));
 
 function sendIndex(request, response) {
-    const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
+    const indexPath = path.join('client', 'build', 'index.html');
 
     response.sendFile(indexPath);
 }
