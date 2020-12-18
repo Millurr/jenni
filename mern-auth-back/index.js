@@ -31,16 +31,16 @@ app.use("/locations", require("./routes/locRouter"));
 app.use("/cart", require("./routes/cartRouter"));
 app.use("/transaction", require('./routes/transactionRouter'));
 
+app.use('/cartpage', require('./routes/frontend/routes'));
+
 // if (process.env.NODE_ENV === 'production') {
 // app.use(express.static('client/build'));
 
-function sendIndex(request, response) {
-    const indexPath = path.join('client', 'build', 'index.html');
+// function sendIndex(request, response) {
+//     const indexPath = path.join('client', 'build', 'index.html');
 
-    response.sendFile(indexPath);
-}
-
-app.get("/cartpage", sendIndex);
+//     response.sendFile(indexPath);
+// }
 
 // app.get('/*', (req, res) => {
 //     let url = path.join(__dirname, '/client/build', 'index.html');
