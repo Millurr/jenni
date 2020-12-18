@@ -22,7 +22,7 @@ import Store from './components/pages/Store';
 import CartPage from './components/pages/CartPage';
 import CheckOut from './components/pages/CheckOut';
 import Success from './components/pages/Success';
-import {Cart} from './components/layouts/Cart';
+import Cart from './components/layouts/Cart';
 import AccountSettings from './components/layouts/AccountSettings';
 import OrderHistory from './components/pages/OrderHistory';
 import UserAccount from './components/pages/UserAccount';

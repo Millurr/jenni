@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Cart(props) {
+export default function Cart(props) {
 
     return (
         <a href="/cartpage">
