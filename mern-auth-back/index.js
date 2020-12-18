@@ -34,13 +34,25 @@ app.use("/transaction", require('./routes/transactionRouter'));
 // if (process.env.NODE_ENV === 'production') {
 app.use(express.static('client/build'));
 
-app.get('/*', (req, res) => {
-    let url = path.join(__dirname, '/client/build', 'index.html');
-    console.log(url);
-    if (!url.startsWith('/app/')) // we're on local windows
-        url = url.substring(1);
-    res.sendFile(url);
-});
+function sendIndex(request, response) {
+    const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
+
+    response.sendFile(indexPath);
+}
+
+app
+    .get("/cartpage", sendIndex)
+    .get("/Habits", sendIndex)
+    .get("/Leaderboard", sendIndex)
+    .get("/Login", sendIndex);
+
+// app.get('/*', (req, res) => {
+//     let url = path.join(__dirname, '/client/build', 'index.html');
+//     console.log(url);
+//     if (!url.startsWith('/app/')) // we're on local windows
+//         url = url.substring(1);
+//     res.sendFile(url);
+// });
 
 // app.get('/*', (req, res) => {
 //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
