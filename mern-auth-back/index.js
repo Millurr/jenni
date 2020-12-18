@@ -32,18 +32,18 @@ app.use("/cart", require("./routes/cartRouter"));
 app.use("/transaction", require('./routes/transactionRouter'));
 
 // if (process.env.NODE_ENV === 'production') {
-app.use(express.static('client/build'));
+// app.use(express.static('client/build'));
 
 function sendIndex(request, response) {
     const indexPath = path.join(__dirname, 'client', 'build', 'index.html');
 
     response.sendFile(indexPath);
 }
-//
+
 app
     .get("/cartpage", sendIndex)
-    .get("/Habits", sendIndex)
-    .get("/Leaderboard", sendIndex)
+    .get("/store", sendIndex)
+    .get("/", sendIndex)
     .get("/Login", sendIndex);
 
 // app.get('/*', (req, res) => {
