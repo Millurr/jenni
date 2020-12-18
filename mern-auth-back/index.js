@@ -36,7 +36,8 @@ app.use("/transaction", require('./routes/transactionRouter'));
 app.use(express.static('client/build'));
 
 app.get('/*', (req, res) => {
-    let url = path.join(__dirname, '../client/build', 'index.html');
+    let url = path.join(__dirname, '/client/build', 'index.html');
+    console.log(url);
     if (!url.startsWith('/app/')) // we're on local windows
         url = url.substring(1);
     res.sendFile(url);
