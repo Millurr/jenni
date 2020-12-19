@@ -1,1 +1,0 @@
-To run back end type: nodemon index.js
