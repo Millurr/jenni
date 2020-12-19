@@ -5,8 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import UserContext from "./context/UserContext";
 
-import Home from "./components/pages/Home";
-
 // Admin pages
 import ManageInventory from "./components/pages/admin/ManageInventory";
 import ManageUsers from './components/pages/admin/ManageUsers';
@@ -18,6 +16,9 @@ import Register from "./components/auth/Register";
 
 // Users pages
 import Header from "./components/layouts/Header";
+import Home from "./components/pages/Home";
+import Contact from "./components/pages/Contact";
+import Gallery from "./components/pages/Gallery";
 import Store from './components/pages/Store';
 import CartPage from './components/pages/CartPage';
 import CheckOut from './components/pages/CheckOut';
@@ -48,12 +49,9 @@ export default function App() {
         let toShow = [];
         const getInv = async () => {
             localCart.forEach(async inv => {
-                // _ids.push(localCart[i]._id);
                 const cartInv = await Axios.get('/inventory/items/'+inv._id);
-                // console.log(cartInv.data);
                 cartInv.data.count = inv.count;
                 toShow.push(cartInv.data);
-                console.log(toShow);
                 setCart(toShow);
             }
             )
@@ -98,8 +96,6 @@ export default function App() {
   const addItem = (item) => {
       let cartCopy = [...cart];
 
-      console.log(item);
-
       if (item.count <= 0) return;
 
       let {_id} = item;
@@ -117,8 +113,6 @@ export default function App() {
       }
 
       setCart(cartCopy);
-
-      console.log(cartCopy);
 
       let stringCart = JSON.stringify(cartCopy);
       localStorage.setItem("cart", stringCart);
@@ -195,6 +189,8 @@ export default function App() {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/contact" component={Contact}/>
+            <Route path="/gallery" component={Gallery}/>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/manageinv" component={ManageInventory} />

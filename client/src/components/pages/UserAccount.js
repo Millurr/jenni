@@ -13,7 +13,6 @@ export default function UserAccount() {
     const [newPassCheck, setNewPassCheck] = useState('');
     const [error, setError] = useState();
     const [success, setSuccess] = useState();
-    console.log(userData.user);
 
     const onSubmit = async () => {
         const update = {

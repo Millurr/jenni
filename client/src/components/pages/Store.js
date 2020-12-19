@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../../style.css'
 import { Card, Button, Container, Row } from 'react-bootstrap';
 import Axios from 'axios';
+import Footer from '../layouts/Footer';
 
 export default function Store({addItem}) {
     const [inventory, setInventory] = useState([]);
@@ -44,6 +45,7 @@ export default function Store({addItem}) {
             }
             </Row>
             </Container>
+            <Footer />
         </div>
     );
 }

@@ -7,6 +7,8 @@ export default function Header({setOptions, current}) {
 
     const home = () => history.push("/");
     const store = () => history.push('/store');
+    const contact = () => history.push('/contact');
+    const gallery = () => history.push('/gallery');
 
     return (
         <div className="w3-top" style={{position:'sticky', top:'0'}}>
@@ -15,8 +17,8 @@ export default function Header({setOptions, current}) {
                 {/* Right-sided navbar links */}
                 <div className="w3-right w3-hide-small">
                     <a onClick={store} className="w3-bar-item w3-button">STORE</a>
-                    <a href="#team" className="w3-bar-item w3-button"><i className="fa" /> ABOUT</a>
-                    <a href="#contact" className="w3-bar-item w3-button"><i className="fa" /> CONTACT</a>
+                    <a onClick={gallery} className="w3-bar-item w3-button">GALLERY</a>
+                    <a onClick={contact} className="w3-bar-item w3-button">CONTACT</a>
                     <AuthOptions setOptions={(val) => setOptions(val)} current={current} />
                 </div>
             </div>

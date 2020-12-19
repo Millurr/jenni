@@ -22,7 +22,6 @@ export default function CheckOut({removeCart}) {
     const onSuccess = (trans) => {
         setTransaction(trans);
         setPaidFor(true);
-        console.log(transaction);
     }
 
     const fullAddress = () => {

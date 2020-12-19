@@ -28,7 +28,6 @@ export default function ManageInventory() {
     useEffect(() => {
         const getInventory = async () => {
             const inv = await Axios.get("/inventory/all");
-            // console.log(inv.data);
             setInventory(inv.data);
         }
         getInventory();
@@ -37,8 +36,6 @@ export default function ManageInventory() {
     const onSubmit = async () => {
         let newItem = {'item': item, 'description': description, 'count': count, 'price': price, 'imageName': imageName, 'imagePath': imagePath};
         const header = { headers: {'level': userData.user?.level.toString()}}
-        console.log(header);
-        console.log(newItem);
         try {
             const addedItem = await Axios.post("/inventory/", newItem, header);
             inventory.push(addedItem);
