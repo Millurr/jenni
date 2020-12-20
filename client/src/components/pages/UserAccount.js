@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import ErrorNotice from "../misc/ErrorNotice";
 import SuccessNotice from '../misc/SuccessNotice';
 import UserContext from '../../context/UserContext';

@@ -10,6 +10,7 @@ const transactionSchema = new Schema({
     username: { type: String, required: true},
     name: { type: String, required:true},
     status: { type: String, required: true},
+    tracking: {type: String, required: false},
     address: { type: String, required:true},
     userId: {type: String, required:true}
 }, {

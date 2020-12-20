@@ -7,22 +7,22 @@ import Footer from '../layouts/Footer';
 export default function Gallery() {
 
     return (
-        <div>
+        <div style={{backgroundColor:'black'}}>
         <div className="w3-row">
         <div className="w3-third">
-            <img src="/natureboy.jpg" style={{width: '100%'}} alt="A boy surrounded by beautiful nature" />
-            <img src="/girl_mountain.jpg" style={{width: '100%'}} alt="What a beautiful scenery this sunset" />
-            <img src="/girl.jpg" style={{width: '100%'}} alt="The Beach. Me. Alone. Beautiful" />
+            <img src="/1.jpg" style={{width: '100%'}} alt="A boy surrounded by beautiful nature" />
+            <img src="/2.jpg" style={{width: '100%'}} alt="What a beautiful scenery this sunset" />
+            <img src="/3.jpg" style={{width: '100%'}} alt="The Beach. Me. Alone. Beautiful" />
         </div>
         <div className="w3-third">
-            <img src="/boy.jpg" style={{width: '100%'}} alt="Quiet day at the beach. Cold, but beautiful" />
-            <img src="/man_bench.jpg" style={{width: '100%'}} alt="Waiting for the bus in the desert" />
-            <img src="/natureboy.jpg" style={{width: '100%'}} alt="Nature again.. At its finest!" />
+            <img src="/4.jpg" style={{width: '100%'}} alt="Quiet day at the beach. Cold, but beautiful" />
+            <img src="/5.jpg" style={{width: '100%'}} alt="Waiting for the bus in the desert" />
+            <img src="/6.jpg" style={{width: '100%'}} alt="Nature again.. At its finest!" />
         </div>
         <div className="w3-third">
-            <img src="/girl.jpg" style={{width: '100%'}} alt="Canoeing again" />
-            <img src="/girl_train.jpg" style={{width: '100%'}} alt="A girl, and a train passing" />
-            <img src="/closegirl.jpg" style={{width: '100%'}} alt="What a beautiful day!" />
+            <img src="/7.jpg" style={{width: '100%'}} alt="Canoeing again" />
+            <img src="/8.jpg" style={{width: '100%'}} alt="A girl, and a train passing" />
+            <img src="/9.jpg" style={{width: '100%'}} alt="What a beautiful day!" />
         </div>
         </div>
         <Footer />

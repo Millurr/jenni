@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
         username,
         name,
         status: 'Pending',
+        tracking: undefined,
         address,
         userId
     });
@@ -59,7 +60,7 @@ router.post("/", async (req, res) => {
     })
 
     res.json(savedTrans);
-})
+});
 
 router.get('/gettrans/:userId', async (req, res) => {
     const transactions = await Transaction.find({userId: req.params.userId});
@@ -78,6 +79,30 @@ router.get('/alltrans', async(req, res) => {
 
     const transactions = await Transaction.find();
     res.json(transactions);
+});
+
+router.put('/edit', async(req, res) => {
+    const token = req.header("x-auth-token");
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, process.env.JWT_TOKEN);
+    if (!verified) return res.json(false);
+
+    const level = req.header('level');
+    if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."});
+
+    let {status, tracking, id} = req.body;
+
+    let transaction = await Transaction.findById({_id: id});
+
+    transaction.status = status;
+
+    if (transaction) transaction.tracking = tracking;
+
+    console.log(transaction);
+
+    const updated = await transaction.save();
+    res.json(updated);
 });
 
 module.exports = router;

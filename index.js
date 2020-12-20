@@ -34,6 +34,7 @@ app.use("/inventory", require("./routes/invRouter"));
 app.use("/locations", require("./routes/locRouter"));
 // app.use("/cart", require("./routes/cartRouter"));
 app.use("/transaction", require('./routes/transactionRouter'));
+app.use("/email", require('./routes/emailRouter'));
 app.use("/*", require('./routes/frontend/pageRouter'));
 
 // if (process.env.NODE_ENV === 'production') {
