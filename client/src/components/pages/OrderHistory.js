@@ -44,7 +44,8 @@ export default function OrderHistory() {
                         <div style={{display:'flex', flexDirection:'row', flex:'3', justifyContent:'space-evenly'}}>
                             <h1 style={{fontSize:'16px', textAlign:'center'}}><b>Shipping: {transaction.address} </b></h1>
                         </div>
-                        <h1 style={{textAlign:'center', fontSize:'16px'}}>Status: {transaction.status}</h1>
+                        <h1 style={{textAlign:'center', fontSize:'16px', padding:'5px'}}>Status: {transaction.status}</h1>
+                        {transaction.status === 'Shipped' ? <h1 style={{textAlign:'center', fontSize:'16px', padding:'5px'}}>Tracking #: {transaction.tracking}</h1> : <></>}
                         {transaction.items.map((item, index) => (
                             <p key={index} style={{textAlign:'center', fontSize:'18px'}}>{item.item} ${item.price} x {item.count}</p>
                         ))}

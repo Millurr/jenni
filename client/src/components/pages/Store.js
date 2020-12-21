@@ -16,7 +16,7 @@ export default function Store({addItem}) {
     }, [inventory]);
 
     return (
-        <div>
+        <div className="w3-light-grey">
             {/* Header with full-height image */}
             <header className="bgimg-2 w3-display-container w3-grayscale-min" id="home" style={{height:300}}>
             <div className="w3-text-white" style={{padding: 48, textAlign:'center', backgroundColor:'black', opacity:'60%', height:300}}>
