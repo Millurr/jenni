@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
-export default function AuthOptions({setOptions, current}) {
+export default function AuthOptions({setOptions, current, close}) {
     const {userData} = useContext(UserContext);
     const history = useHistory();
 
@@ -34,8 +34,14 @@ export default function AuthOptions({setOptions, current}) {
                     </>
                     ) : (
                     <>
-                        <a className="w3-bar-item w3-button" onClick={register}><i className="fa" /> REGISTER</a>
-                        <a className="w3-bar-item w3-button"  onClick={login}><i className="fa" /> LOG IN</a>
+                        <a className="w3-bar-item w3-button" onClick={() => {
+                            register();
+                            close();
+                        }}><i className="fa" /> REGISTER</a>
+                        <a className="w3-bar-item w3-button"  onClick={() => {
+                            login();
+                            close();
+                        }}><i className="fa" /> LOG IN</a>
                     </>
             )}
             

@@ -185,6 +185,7 @@ router.get("/", auth, async (req, res) => {
     
     res.json({
         displayName: user.displayName,
+        email: user.email,
         id: user._id,
         level: user.level,
     });

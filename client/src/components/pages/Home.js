@@ -11,7 +11,7 @@ export default function Home() {
     const gallery = () => history.push('/gallery');
 
     return (
-        <body>
+        <div>
             {/* Header with full-height image */}
             <header className="bgimg-1 w3-display-container w3-grayscale-min" id="home">
                 <div
@@ -24,7 +24,7 @@ export default function Home() {
                     <p>
                         <a
                             onClick={store}
-                            className="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Find what you are looking for today</a>
+                            className="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Take a look!</a>
                     </p>
                 </div>
                 <div
@@ -167,6 +167,6 @@ export default function Home() {
 
             <Footer/>
 
-        </body>
+        </div>
     )
 }

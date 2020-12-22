@@ -20,7 +20,7 @@ export default function Store({addItem}) {
             {/* Header with full-height image */}
             <header className="bgimg-2 w3-display-container w3-grayscale-min" id="home" style={{height:300}}>
             <div className="w3-text-white" style={{padding: 48, textAlign:'center', backgroundColor:'black', opacity:'60%', height:300}}>
-                <span style={{ position:'absolute', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}} className="w3-jumbo w3-hide-small">Our Shop</span><br />
+                <span style={{ position:'absolute', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}} className="w3-jumbo">Our Shop</span><br />
             </div> 
             </header>
             

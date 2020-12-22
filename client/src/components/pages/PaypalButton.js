@@ -28,11 +28,11 @@ export default function PaypalButton({total, cart, onSuccess, isLoading, address
                         transactionId: data.orderID,
                         count: cart.length,
                         total,
-                        username: userData.user.displayName ?? 'Guest',
+                        username: userData.user?.displayName ?? 'Guest',
                         name: details.payer.name.given_name,
                         address: address(),
-                        email: details.payer.email_address,
-                        userId: userData.user.id ?? 'Guest'
+                        email: userData.user?.email ?? details.payer.email_address,
+                        userId: userData.user?.id ?? 'Guest'
                     }
                     const transaction = await Axios.post('/transaction/', trans);
 
