@@ -6,8 +6,7 @@ import { Card, Button, Container, Row } from 'react-bootstrap';
 // Gets the local storage to get users items added to cart
 // If user has no data it will display that the cart is empty
 
-export default function CartPage({ cart, editItem, removeItem, removeCart}) {
-    // let [cart, setCart] = useState([]);
+export default function CartPage({ cart, editItem, removeItem}) {
     const history = useHistory();
 
     const checkout = () => history.push({
@@ -27,10 +26,10 @@ export default function CartPage({ cart, editItem, removeItem, removeCart}) {
     }
 
     return (
-        <Container fluid="md" style={{margin:0, position:'absolute', top:'50%', left: '50%', msTransform:'translate(-50%, -50%)', transform:'translate(-50%, -50%)'}}>
+        <Container fluid="md" style={{display:'flex', flexDirection:'column', justifyContent:'center', paddingBottom:'10px'}}>
             <div>
                 <div style={{textAlign:'center'}}>
-                    {!(cart.length == 0) ? <span className="w3-jumbo w3-hide-small">Your cart</span> : <span className="w3-jumbo w3-hide-small">Your cart is empty.</span>}
+                    {!(cart.length == 0) ? <span className="w3-jumbo">Your cart</span> : <span className="w3-jumbo">Your cart is empty.</span>}
                 </div> 
             <Row style={{justifyContent:'center'}}>
             {cart.map((inv, index) => (

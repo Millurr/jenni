@@ -44,7 +44,7 @@ export default function App() {
 
   useEffect(() => {
     localCart = JSON.parse(localCart);
-    if (localCart) setCart(localCart);
+    // if (localCart) setCart(localCart);
     if (localCart) {
         let toShow = [];
         const getInv = async () => {
@@ -87,11 +87,12 @@ export default function App() {
       }
       
     };
-    const timer = setTimeout(() => {
-      checkLoggedIn();
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    checkLoggedIn()
+    // const timer = setTimeout(() => {
+    //   checkLoggedIn();
+    // }, 1000);
+    // return () => clearTimeout(timer);
+  }, [localCart]);
 
   const addItem = (item) => {
       let cartCopy = [...cart];
