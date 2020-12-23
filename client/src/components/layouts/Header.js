@@ -40,7 +40,7 @@ export default function Header({setOptions, current}) {
         <>
         <div className="w3-top" style={{position:'sticky', top:'0'}}>
             <div className="w3-bar w3-white w3-card" id="myNavbar">
-                <a onClick={home} className="w3-bar-item w3-button w3-wide">HOME</a>
+                <a onClick={home} className="w3-bar-item w3-button w3-wide"><img style={{height:'25px'}} src="/headerlog-vectorized.png" alt="Header"></img></a>
                 {/* Right-sided navbar links */}
                 <div className="w3-right w3-hide-small">
                     <a onClick={store} className="w3-bar-item w3-button">STORE</a>
