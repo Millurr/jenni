@@ -94,7 +94,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A microphone"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -103,7 +102,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A phone"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -112,7 +110,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A drone"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -121,7 +118,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="Soundbox"/>
                     </div>
                 </div>
@@ -132,7 +128,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A tablet"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -141,7 +136,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A camera"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -150,7 +144,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A typewriter"/>
                     </div>
                     <div className="w3-col l3 m6">
@@ -159,7 +152,6 @@ export default function Home() {
                             style={{
                             width: '100%'
                         }}
-                            onclick="onClick(this)"
                             alt="A tableturner"/>
                     </div>
                 </div>

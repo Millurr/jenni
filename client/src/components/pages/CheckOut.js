@@ -54,8 +54,8 @@ export default function CheckOut({removeCart}) {
                         <Form.Label>State</Form.Label>
                         <Form.Control as="select" defaultValue="Choose..." onChange={(e) => setState(e.target.value == 'Choose...' ? undefined : e.target.value)}>
                             <option>Choose...</option>
-                            {states.map((state) => (
-                                <option>{state}</option>
+                            {states.map((state, index) => (
+                                <option key={index}>{state}</option>
                             ))}
                         </Form.Control>
                         </Form.Group>

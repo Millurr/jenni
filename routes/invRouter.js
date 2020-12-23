@@ -86,8 +86,10 @@ router.get('/items/:id', async(req, res) => {
 
 // Gets all items in the inventory
 router.get("/all", async(req, res) => {
+    let mysort = { item: 1 };
     try {
-        const inv = await Inventory.find();
+        const inv = await Inventory.find().sort(mysort);
+        console.log(inv)
         res.json(inv);
     } catch(err) {
         res.status(500).json({ error: err.message });

@@ -39,7 +39,7 @@ export default function AccountSettings({setOptions}) {
             style={{
             width: '75%',
             height: '75%',
-            position: 'absolute',
+            position: 'fixed',
             zIndex: 10,
             top: '50%',
             left: '50%',

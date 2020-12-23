@@ -13,7 +13,7 @@ export default function Store({addItem}) {
             setInventory(inv.data);
         }
         getInv();
-    }, [inventory]);
+    }, []);
 
     return (
         <div className="w3-light-grey">
@@ -40,7 +40,7 @@ export default function Store({addItem}) {
                         </Card.Text>
                         <Button onClick={() => addItem(inv)} variant="secondary">Add to Cart</Button>
                     </Card.Body>
-                </Card> : <></>
+                </Card> : <div key={inv._id}></div>
             ))
             }
             </Row>

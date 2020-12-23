@@ -48,8 +48,8 @@ export default function Header({setOptions, current}) {
                     <a onClick={contact} className="w3-bar-item w3-button">CONTACT</a>
                     <AuthOptions setOptions={(val) => setOptions(val)} current={current} />
                 </div>
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onClick={() => open()}>
-                    <i class="fa fa-bars"></i>
+                <a href="javascript:void(0)" className="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onClick={() => open()}>
+                    <i className="fa fa-bars"></i>
                 </a>
             </div>
         </div>
