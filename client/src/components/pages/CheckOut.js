@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import '../../style.css'
 import {useLocation} from 'react-router-dom';
 import { Container, Form, Col } from 'react-bootstrap';
@@ -6,18 +6,36 @@ import PaypalButton from './PaypalButton';
 import Success from './Success';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
+import Axios from 'axios';
+import ReCAPTCHA from "react-google-recaptcha";
+import UserContext from "../../context/UserContext";
 
 const states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
 
 export default function CheckOut({removeCart}) {
+    const {userData} = useContext(UserContext);
     const [transaction, setTransaction] = useState([]);
     const [street, setStreet] = useState();
     const [city, setCity] = useState();
     const [state, setState] = useState();
     const [zip, setZip] = useState();
+    const [cap, setCap] = useState();
     const [paidFor, setPaidFor] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(false);
     const location = useLocation();
+
+    React.useEffect(() => {
+        const getCap = async () => {
+            const capKey = await Axios.get('/captcha/');
+            setCap(capKey.data.cap);
+        }
+        getCap();
+    });
+
+    const onChange = () => {
+        setShow(!show);
+    }
 
     const onSuccess = (trans) => {
         setTransaction(trans);
@@ -66,9 +84,18 @@ export default function CheckOut({removeCart}) {
                         </Form.Group>
                     </Form.Row>
                     </Form>
+                    {!userData.user ? 
+                    <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}>
+                        <ReCAPTCHA
+                            sitekey='6LdnRRIaAAAAAByyzHRHAVLrep2mWoMbFPYtM4Gp'
+                            onChange={onChange}
+                        />
+                    </div>
+                    :
+                    <></>}
                 <p>Total: ${location.state.total}</p>
                 {loading ? <Loader type="TailSpin" color="black" height={50} width={50} timeout={20000} /> : <></> }
-                    {(street && city && state && zip) ? <PaypalButton total={location.state.total} cart={location.state.cart} onSuccess={(trans) => onSuccess(trans)} isLoading={(val) => setLoading(val)} address={() => fullAddress()}/>
+                    {(street && city && state && zip && userData.user ? true : show) ? <PaypalButton total={location.state.total} cart={location.state.cart} onSuccess={(trans) => onSuccess(trans)} isLoading={(val) => setLoading(val)} address={() => fullAddress()}/>
                     : <h3>You muse fill out all shipping info for payment options to appear.</h3>}
             </div> : <div>Nothing in cart</div>
             :

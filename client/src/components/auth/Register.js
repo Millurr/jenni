@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import ErrorNotice from "../misc/ErrorNotice";
 import { Button } from 'react-bootstrap';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Register() {
   const [email, setEmail] = useState();
@@ -11,9 +12,23 @@ export default function Register() {
   const [passwordCheck, setPasswordCheck] = useState();
   const [displayName, setDisplayName] = useState();
   const [error, setError] = useState();
+  const [cap, setCap] = useState();
+  const [disabled, setDisabled] = useState(true);
 
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
+
+  useEffect(() => {
+    const getCap = async () => {
+      const capKey = await Axios.get('/captcha/');
+      setCap(capKey.data.cap);
+    }
+    getCap();
+  });
+
+  const onChange = (value) => {
+    setDisabled(!disabled);
+  }
 
   const submit = async (e) => {
     e.preventDefault();
@@ -70,7 +85,11 @@ export default function Register() {
           onChange={(e) => setDisplayName(e.target.value)}
         />
 
-        <Button variant="outline-info" type="submit">Register</Button>
+        <ReCAPTCHA
+            sitekey='6LdnRRIaAAAAAByyzHRHAVLrep2mWoMbFPYtM4Gp'
+            onChange={onChange}
+          />
+        <Button disabled={disabled} variant="secondary" type="submit">Register</Button>
       </form>
     </div>
   );

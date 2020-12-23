@@ -35,26 +35,9 @@ app.use("/locations", require("./routes/locRouter"));
 // app.use("/cart", require("./routes/cartRouter"));
 app.use("/transaction", require('./routes/transactionRouter'));
 app.use("/email", require('./routes/emailRouter'));
+
+// recieve captcha key on the backend
+app.use('/captcha', require('./routes/secretRouter'));
+
+// all other routes attemp to go to index.html to render react pages
 app.use("/*", require('./routes/frontend/pageRouter'));
-
-// if (process.env.NODE_ENV === 'production') {
-// app.use(express.static('client/build'));
-
-// function sendIndex(request, response) {
-//     const indexPath = path.join('client', 'build', 'index.html');
-
-//     response.sendFile(indexPath);
-// }
-
-// app.get('/*', (req, res) => {
-//     let url = path.join(__dirname, '/client/build', 'index.html');
-//     console.log(url);
-//     if (!url.startsWith('/app/')) // we're on local windows
-//         url = url.substring(1);
-//     res.sendFile(url);
-// });
-
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-// });
-// }
