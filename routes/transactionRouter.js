@@ -5,6 +5,19 @@ const Inventory = require('../models/invModel');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const handlebars = require('handlebars');
+
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function(err, html) {
+        if (err) {
+            throw err;
+            callback(err);
+        } else {
+            callback(null, html);
+        }
+    });
+};
 
 router.post("/", async (req, res) => {
     const {items, transactionId, count, total, username, name, address, userId, email} = req.body;
@@ -31,33 +44,39 @@ router.post("/", async (req, res) => {
         userId
     });
 
+    console.log(newTrans);
+
     const savedTrans = await newTrans.save();
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'millurr0@gmail.com',
-            pass: 'Miller2450!'
+            pass: process.env.EMAIL_PW
         }
     });
 
-    var mailOptions = {
-        from: 'millurr0@gmail.com',
-        to: 'josh.miller1994@yahoo.com, ' + email,
-        subject: 'New Company',
-        html: '<h1>' +  username +'</h1>'
-    }
-
-    console.log(email);
-
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            console.log(error);
+    readHTMLFile(__dirname + '/templates/trans.html', function(err, html) {
+        var template = handlebars.compile(html);
+        var replacements = {
+             orderId: newTrans['_id'], items, count, total, address, name
+        };
+        var htmlToSend = template(replacements);
+        var mailOptions = {
+            from: 'millurr0@gmail.com',
+            to: 'josh.miller1994@yahoo.com, ' + email,
+            subject: 'New Company',
+            html: htmlToSend
         }
-        else {
-            console.log('Email sent to ' + info.response);
-        }
-    })
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                console.log('Email sent to ' + info.response);
+            }
+        })
+    });
 
     res.json(savedTrans);
 });

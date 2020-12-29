@@ -1,6 +1,19 @@
 // This router does not store data to Mongo, it will just process emails.
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
+const handlebars = require('handlebars');
+const fs = require('fs');
+
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function(err, html) {
+        if (err) {
+            throw err;
+            callback(err);
+        } else {
+            callback(null, html);
+        }
+    });
+};
 
 router.post('/contact', async(req, res) => {
 
@@ -20,24 +33,29 @@ router.post('/contact', async(req, res) => {
         }
     });
 
-    var mailOptions = {
-        from: 'contact.jmcraft@gmail.com',
-        to: 'millurr0@gmail.com, ' + email,
-        subject: subject + ' -- ' + name + '--' + pnumber,
-        text: message
-    }
-
-    console.log(email);
-
-    transporter.sendMail(mailOptions, function(err, info) {
-        if (err) {
-            res.status(500).json({ error: err.message });
+    readHTMLFile(__dirname + '/templates/contact.html', function(err, html) {
+        var template = handlebars.compile(html);
+        var replacements = {
+             name, email, pnumber, subject, message
+        };
+        var htmlToSend = template(replacements);
+        var mailOptions = {
+            from: 'contact.jmcraft@gmail.com',
+            to: 'millurr0@gmail.com, ' + email + ', ' + 'contact.jmcraft@gmail.com',
+            subject: subject + ' -- ' + name + '--' + pnumber,
+            html: htmlToSend
         }
-        else {
-            console.log('Email sent to ' + info.response);
-            res.json({'success': 'Your inquirement has been sent.'})
-        }
-    })
+         transporter.sendMail(mailOptions, function(err, info) {
+            if (err) {
+                res.status(500).json({ error: err.message });
+            }
+            else {
+                console.log('Email sent to ' + info.response);
+                res.json({'success': 'Your inquirement has been sent.'})
+            }
+        })
+    });
+
 });
 
 module.exports = router;
