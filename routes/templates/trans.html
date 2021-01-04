@@ -1,10 +1,33 @@
-<html>
-    <div style="display: flex; flex-direction: column; align-content: center;">
-        <h1 style="text-align:center">{{name}}</h1>
-        <h1 style="text-align:center">Order #: {{orderId}}</h1>
-        <h1 style="text-align:center">{{address}}</h1>
-        <h1 style="text-align:center">{{items}}</h1>
-        <h1 style="text-align:center">{{count}}</h1>
-        <h1 style="text-align:center">{{total}}</h1>
-    </div>
-</html>
+<h1 style="border-bottom:1px solid black; text-align:center">Your order confirmation</h1>
+<p>Thank you for your purchase from <a href="www.jmcrafting.com">www.jmcrafting.com</a></p>
+<p>Order #:<b>{{orderId}}</b></p>
+
+<h1 style="border-bottom:1px solid black; text-align:center">Shipping to {{name}}</h1>
+<p>{{address}}</p>
+<h1 style="border-bottom:1px solid black; text-align:center">Order Summary</h1>
+<table id="summary" style="width:100%; padding:5px; border-spacing: 15px;">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>QTY</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#items}}
+        <tr>
+            <td style="text-align:center">{{item}}</td>
+            <td style="text-align:center">${{price}}</td>
+            <td style="text-align:center">{{count}}</td>
+            <td style="text-align:center">${{total}}</td>
+        </tr>
+        {{/items}}
+    </tbody>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align:center">Total: ${{total}}</td>
+    </tr>
+</table>

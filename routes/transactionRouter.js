@@ -8,8 +8,10 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
-var readHTMLFile = function(path, callback) {
-    fs.readFile(path, {encoding: 'utf-8'}, function(err, html) {
+var readHTMLFile = function (path, callback) {
+    fs.readFile(path, {
+        encoding: 'utf-8'
+    }, function (err, html) {
         if (err) {
             throw err;
             callback(err);
@@ -20,12 +22,28 @@ var readHTMLFile = function(path, callback) {
 };
 
 router.post("/", async (req, res) => {
-    const {items, transactionId, count, total, username, name, address, userId, email} = req.body;
+    let {
+        items,
+        transactionId,
+        count,
+        total,
+        username,
+        name,
+        address,
+        userId,
+        email
+    } = req.body;
     // const item = await Inventory.findById({_id: itemId});
-    items.forEach( async (item) => {
-        const foundItem = await Inventory.findById({_id: item._id});
-        if (foundItem.count < item.count) return res.status(400).json({msg: "Not enough inventory."});
-        else if (item.count <= 0) return res.status(400).json({msg: "User must input a valid number"});
+    items.forEach(async (item) => {
+        const foundItem = await Inventory.findById({
+            _id: item._id
+        });
+        if (foundItem.count < item.count) return res.status(400).json({
+            msg: "Not enough inventory."
+        });
+        else if (item.count <= 0) return res.status(400).json({
+            msg: "User must input a valid number"
+        });
         else foundItem.count -= item.count;
 
         await foundItem.save();
@@ -44,8 +62,6 @@ router.post("/", async (req, res) => {
         userId
     });
 
-    console.log(newTrans);
-
     const savedTrans = await newTrans.save();
 
     var transporter = nodemailer.createTransport({
@@ -55,11 +71,26 @@ router.post("/", async (req, res) => {
             pass: process.env.EMAIL_PW
         }
     });
+    let newItem = []
+    for (let i = 0; i < items.length; i++) {
+        newItem.push({
+            item: items[i].item,
+            price: items[i].price,
+            count: items[i].count,
+            total: items[i].count * items[i].price
+        })
+    }
 
-    readHTMLFile(__dirname + '/templates/trans.html', function(err, html) {
+
+    readHTMLFile(__dirname + '/templates/trans.html', function (err, html) {
         var template = handlebars.compile(html);
         var replacements = {
-             orderId: newTrans['_id'], items, count, total, address, name
+            orderId: newTrans['_id'],
+            items: newItem,
+            count,
+            total,
+            address,
+            name
         };
         var htmlToSend = template(replacements);
         var mailOptions = {
@@ -68,11 +99,10 @@ router.post("/", async (req, res) => {
             subject: 'New Company',
             html: htmlToSend
         }
-        transporter.sendMail(mailOptions, function(error, info) {
+        transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
-            }
-            else {
+            } else {
                 console.log('Email sent to ' + info.response);
             }
         })
@@ -82,11 +112,13 @@ router.post("/", async (req, res) => {
 });
 
 router.get('/gettrans/:userId', async (req, res) => {
-    const transactions = await Transaction.find({userId: req.params.userId});
+    const transactions = await Transaction.find({
+        userId: req.params.userId
+    });
     res.json(transactions);
 });
 
-router.get('/alltrans', async(req, res) => {
+router.get('/alltrans', async (req, res) => {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
 
@@ -94,13 +126,15 @@ router.get('/alltrans', async(req, res) => {
     if (!verified) return res.json(false);
 
     const level = req.header('level');
-    if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."});
+    if (level !== "4") return res.status(400).json({
+        msg: "You do not have valid permissions."
+    });
 
     const transactions = await Transaction.find();
     res.json(transactions);
 });
 
-router.put('/edit', async(req, res) => {
+router.put('/edit', async (req, res) => {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
 
@@ -108,11 +142,19 @@ router.put('/edit', async(req, res) => {
     if (!verified) return res.json(false);
 
     const level = req.header('level');
-    if (level !== "4") return res.status(400).json({msg: "You do not have valid permissions."});
+    if (level !== "4") return res.status(400).json({
+        msg: "You do not have valid permissions."
+    });
 
-    let {status, tracking, id} = req.body;
+    let {
+        status,
+        tracking,
+        id
+    } = req.body;
 
-    let transaction = await Transaction.findById({_id: id});
+    let transaction = await Transaction.findById({
+        _id: id
+    });
 
     transaction.status = status;
 
