@@ -13,6 +13,7 @@ export default function AllTransactions() {
     const [current, setCurrent] = useState();
     const [currentId, setCurrentId] = useState();
     const [currentTracking, setCurrentTracking] = useState();
+    const [search, setSearch] = useState('');
     
     useEffect(() => {
         const getTrans = async () => {
@@ -47,12 +48,21 @@ export default function AllTransactions() {
         setModalShow(true);
     }
 
+    console.log(trans)
+
     return (  
         <Container fluid="md">
             {userData.user ? 
             <div style={{display:'flex', flexDirection:'column', alignContent:'center', justifyContent:'center'}}>
                 <h1 style={{textAlign:'center'}}>All Transactions</h1>
-                {trans?.length != 0 ? trans?.map((transaction) => (
+                <input placeholder="Search (Name, Tracking #, Order ID, Username)" type="search" style={{padding:'5px'}} onChange={(e) => {setSearch(e.target.value)}} />
+                {trans?.length != 0 ? trans?.filter((transaction) => {
+                    if(search == '')
+                        return transaction
+                    else if(transaction.name?.toLowerCase().includes(search?.toLowerCase()) || transaction.tracking?.toLowerCase().includes(search?.toLowerCase()) || transaction._id?.toLowerCase().includes(search?.toLowerCase()) || transaction.username?.toLowerCase().includes(search?.toLowerCase())){
+                        return transaction
+                    }
+                }).map((transaction) => (
                     <div key={transaction._id} style={{borderBottom:'4px solid', padding:'10px'}}>
                         <h1 style={{textAlign:'left', display:'inline-block', fontSize:'16px'}}>ID: {transaction._id}</h1><h1 className={'w3-right'} style={{textAlign:'right', display:'inline-block', fontSize:'16px'}}>{getDate(transaction.createdAt)}</h1>
                         <div style={{display:'flex', flexDirection:'row', flex:'3', justifyContent:'space-evenly'}}>

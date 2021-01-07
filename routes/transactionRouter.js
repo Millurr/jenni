@@ -163,7 +163,7 @@ router.put('/edit', async (req, res) => {
 
     if (transaction) transaction.tracking = tracking;
 
-    if (status == 'Shipped') {
+    if (status == 'Shipped' && (transaction.userId != 'Guest')) {
 
         // gets the user id that is registered to the transaction to send an email upon the transaction being changed to shipped
         let user = await User.findById({
