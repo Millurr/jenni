@@ -21,6 +21,14 @@ var readHTMLFile = function (path, callback) {
     });
 };
 
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'millurr0@gmail.com',
+        pass: process.env.EMAIL_PW
+    }
+});
+
 router.post("/", async (req, res) => {
     let {
         items,
@@ -64,13 +72,6 @@ router.post("/", async (req, res) => {
 
     const savedTrans = await newTrans.save();
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'millurr0@gmail.com',
-            pass: process.env.EMAIL_PW
-        }
-    });
     let newItem = []
     for (let i = 0; i < items.length; i++) {
         newItem.push({
@@ -134,6 +135,8 @@ router.get('/alltrans', async (req, res) => {
     res.json(transactions);
 });
 
+// edits the transactions for the admin to show the status
+// pass through status, tracking, id
 router.put('/edit', async (req, res) => {
     const token = req.header("x-auth-token");
     if (!token) return res.json(false);
@@ -159,6 +162,35 @@ router.put('/edit', async (req, res) => {
     transaction.status = status;
 
     if (transaction) transaction.tracking = tracking;
+
+    if (status == 'Shipped') {
+
+        // gets the user id that is registered to the transaction to send an email upon the transaction being changed to shipped
+        let user = await User.findById({
+            _id: transaction.userId
+        });
+
+        readHTMLFile(__dirname + '/templates/shipped.html', function (err, html) {
+            var template = handlebars.compile(html);
+            var replacements = {
+                tracking
+            };
+            var htmlToSend = template(replacements);
+            var mailOptions = {
+                from: 'millurr0@gmail.com',
+                to: 'josh.miller1994@yahoo.com, ' + user.email,
+                subject: 'New Company',
+                html: htmlToSend
+            }
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent to ' + info.response);
+                }
+            })
+        });
+    }
 
     console.log(transaction);
 
