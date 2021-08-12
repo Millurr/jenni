@@ -57,7 +57,7 @@ export default function Home() {
                 </p>
             </div>
 
-            <div className="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+            <div className="w3-container w3-row w3-center w3-dark-grey bgimg-3 w3-padding-64">
                 <div className="w3-third w3-hover-opacity" onClick={gallery}>
                     <i className="fa fa-camera w3-margin-bottom w3-jumbo"/>
                     <p className="w3-large">Gallery</p>
@@ -90,69 +90,69 @@ export default function Home() {
                 }}>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_mic.jpg"
+                            src="/home_1.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A microphone"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_phone.jpg"
+                            src="/home_2.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A phone"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_drone.jpg"
+                            src="/home_3.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A drone"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_sound.jpg"
+                            src="/home_4.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="Soundbox"/>
+                            alt=""/>
                     </div>
                 </div>
                 <div className="w3-row-padding w3-section">
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_tablet.jpg"
+                            src="/home_5.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A tablet"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_camera.jpg"
+                            src="/home_6.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A camera"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_typewriter.jpg"
+                            src="/home_7.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A typewriter"/>
+                            alt=""/>
                     </div>
                     <div className="w3-col l3 m6">
                         <img
-                            src="/tech_tableturner.jpg"
+                            src="/home_8.jpg"
                             style={{
                             width: '100%'
                         }}
-                            alt="A tableturner"/>
+                            alt=""/>
                     </div>
                 </div>
             </div>

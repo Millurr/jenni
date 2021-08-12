@@ -44,7 +44,7 @@ export default function Header({setOptions, current}) {
                 {/* Right-sided navbar links */}
                 <div className="w3-right w3-hide-small">
                     <a onClick={store} className="w3-bar-item w3-button">STORE</a>
-                    <a onClick={gallery} className="w3-bar-item w3-button">GALLERY</a>
+                    {/* <a onClick={gallery} className="w3-bar-item w3-button">GALLERY</a> */}
                     <a onClick={contact} className="w3-bar-item w3-button">CONTACT</a>
                     <AuthOptions setOptions={(val) => setOptions(val)} current={current} />
                 </div>
@@ -56,7 +56,7 @@ export default function Header({setOptions, current}) {
         {/* Sidebar on small screens when clicking the menu icon */}
         <nav className="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-hide-medium w3-hide-large" style={{display: 'none', opacity:'80%'}} id="mySidebar">
             <a onClick={() => onSelect(1)} className="w3-bar-item w3-button">STORE</a>
-            <a onClick={() => onSelect(2)} className="w3-bar-item w3-button">GALLERY</a>
+            {/* <a onClick={() => onSelect(2)} className="w3-bar-item w3-button">GALLERY</a> */}
             <a onClick={() => onSelect(3)} className="w3-bar-item w3-button">CONTACT</a>
             <AuthOptions setOptions={(val) => setOptions(val)} current={current} close={() => close()} />
         </nav>
